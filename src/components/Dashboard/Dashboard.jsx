@@ -49,7 +49,7 @@ function Dashboard() {
     return (
         <div className="pb-4 bg-gray-50 min-h-screen relative">
             <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center">Recent Notes</h1>
-            <div className="flex justify-center-safe flex-wrap gap-5 items-start">
+            <div className="flex justify-center-safe flex-wrap gap-8 items-start">
                 {posts.map(post => (
                     <div key={post.id} className="w-full sm:w-auto flex justify-center px-4">
                         <PostCard post={post} onPostUpdate={() => fetchPosts(apiBaseUrl)} />
