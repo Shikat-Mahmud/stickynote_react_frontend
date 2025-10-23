@@ -42,7 +42,7 @@ const CreatePostModal = ({ user, onClose, onPostCreated }) => {
                 </button>
 
                 <h2 className="text-2xl font-semibold mb-4 text-gray-800 text-center">
-                    Create New Post
+                    Add New Note
                 </h2>
 
                 {error && (
