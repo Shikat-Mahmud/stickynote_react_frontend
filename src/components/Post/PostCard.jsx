@@ -47,10 +47,6 @@ function PostCard({ post, onPostUpdate }) {
                 className="pin-icon"
             />
 
-            <span className="text-xs text-gray-500 post-time">
-                {timeAgo(post.created_at)}
-            </span>
-
             <div className="flex flex-row items-center justify-between mb-4">
                 <div className="flex items-center">
                     <img
@@ -60,7 +56,12 @@ function PostCard({ post, onPostUpdate }) {
                     />
                     <div>
                         <h3 className="text-lg font-semibold text-gray-800">{post.user.name}</h3>
-                        <p className="text-sm text-gray-600">@{post.user.email.split('@')[0]}</p>
+                        <div className="flex items-center">
+                            <p className="text-sm text-gray-600">@{post.user.email.split('@')[0]}</p>
+                            <span className="text-xs text-gray-500 ms-2">
+                                | {timeAgo(post.created_at)}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

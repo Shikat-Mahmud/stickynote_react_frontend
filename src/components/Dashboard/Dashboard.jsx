@@ -43,8 +43,8 @@ function Dashboard() {
         fetchPosts();
     };
 
-    if (loading) return <div className="text-center min-h-screen flex justify-center items-center font-stretch-expanded">Loading posts...</div>;
-    if (error) return <div className="text-center mt-8 text-red-500">{error}</div>;
+    if (loading) return <div className="text-center min-h-screen flex justify-center items-center font-stretch-expanded">Loading notes...</div>;
+    if (error) return <div className="text-center  min-h-screen flex justify-center items-center font-stretch-expanded text-red-500">{error}</div>;
 
     return (
         <div className="pb-4 bg-gray-50 min-h-screen relative">
