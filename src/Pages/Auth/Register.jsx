@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { setPageTitle } from '../../../utils/setPageTitle';
-import { apiBaseUrl } from '../../../config';
+import { apiBaseUrl } from '../../config';
+import { setPageTitle } from '../../utils/setPageTitle';
 
 function Register() {
     const [name, setName] = useState('');

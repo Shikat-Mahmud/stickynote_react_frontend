@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { setPageTitle } from '../../../utils/setPageTitle';
-import { apiBaseUrl } from '../../../config';
-import { AuthContext } from '../../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import { apiBaseUrl } from '../../config';
+import { setPageTitle } from '../../utils/setPageTitle';
 
 function Login() {
     const [email, setEmail] = useState('');

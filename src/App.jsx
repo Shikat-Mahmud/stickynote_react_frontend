@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './components/Pages/Auth/Login';
-import Register from './components/Pages/Auth/Register';
-import Dashboard from './components/Pages/Dashboard/Dashboard';
-import NotFound from './components/Pages/NotFound';
+import Login from './Pages/Auth/Login';
+import Register from './Pages/Auth/Register';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import NotFound from './Pages/NotFound';
 import './index.css';
 import AuthLayout from './components/Layout/AuthLayout';
 import GuestLayout from './components/Layout/GuestLayout';
 import PublicLayout from './components/Layout/PublicLayout';
-import Home from './components/Pages/Public/Home';
-import About from './components/Pages/Public/About';
-import Contact from './components/Pages/Public/Contact';
+import Home from './Pages/Public/Home';
+import About from './Pages/Public/About';
+import Contact from './Pages/Public/Contact';
 import AuthProvider from './contexts/AuthProvider';
 
 axios.defaults.withCredentials = true;
