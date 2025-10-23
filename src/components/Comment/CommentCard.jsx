@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import ReplyCard from '../Reply/ReplyCard';
-import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import Reactions from '../Reaction/Reactions';
+import { apiBaseUrl } from '../../config';
+import axiosClient from '../../utils/axiosClient';
 
 const generateRandomCommentColor = () => {
     const colors = [
@@ -16,14 +17,14 @@ const generateRandomCommentColor = () => {
 
 function CommentCard({ comment, onCommentUpdate }) {
     const [currentComment, setCurrentComment] = useState(comment);
-    
+
     React.useEffect(() => {
         setCurrentComment(comment);
     }, [comment]);
 
     const [showReplies, setShowReplies] = useState(false);
     const [newReplyContent, setNewReplyContent] = useState('');
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
 
     const [randomCardColor] = useState(generateRandomCommentColor);
 
@@ -33,16 +34,16 @@ function CommentCard({ comment, onCommentUpdate }) {
             return;
         }
         try {
-            const response = await axios.post(`${apiBaseUrl}/comments/${currentComment.id}/react`, { type: reactionType });
-            
+            const response = await axiosClient.post(`${apiBaseUrl}/comments/${currentComment.id}/react`, { type: reactionType });
+
             const updatedCounts = response.data.reaction_counts || currentComment.reaction_counts;
 
             setCurrentComment(prevComment => ({
                 ...prevComment,
                 reaction_counts: updatedCounts
             }));
-            
-            onCommentUpdate(); 
+
+            onCommentUpdate();
 
         } catch (error) {
             console.error("Error reacting to comment:", error);
@@ -58,7 +59,7 @@ function CommentCard({ comment, onCommentUpdate }) {
         if (!newReplyContent.trim()) return;
 
         const tempReply = {
-            id: 'temp-' + Date.now(), 
+            id: 'temp-' + Date.now(),
             content: newReplyContent,
             user: { name: user.name, email: user.email },
             reaction_counts: {},
@@ -73,12 +74,12 @@ function CommentCard({ comment, onCommentUpdate }) {
         setShowReplies(true);
 
         try {
-            await axios.post(`${apiBaseUrl}/comments/${currentComment.id}/replies`, { content: tempReply.content });
-            onCommentUpdate(); 
+            await axiosClient.post(`${apiBaseUrl}/comments/${currentComment.id}/replies`, { content: tempReply.content });
+            onCommentUpdate();
         } catch (err) {
             console.error("Error adding reply:", err);
             console.error('Failed to add reply.');
-            
+
             setCurrentComment(prevComment => ({
                 ...prevComment,
                 replies: prevComment.replies.filter(r => r.id !== tempReply.id),
@@ -91,10 +92,10 @@ function CommentCard({ comment, onCommentUpdate }) {
         <div className={`rounded-lg shadow-sm p-4 text-sm border-l-4 ${randomCardColor}`}>
             <div className="flex items-center mb-2">
                 <img
-                        src="/public/assets/icons/male_avater.png"
-                        alt="pin"
-                        className="text-lg mr-2 max-h-10"
-                    />
+                    src="/assets/icons/male_avater.png"
+                    alt="pin"
+                    className="text-lg mr-2 max-h-10"
+                />
                 <div>
                     <h5 className="font-medium text-gray-800">{currentComment.user.name}</h5>
                     <p className="text-xs text-gray-500">@{currentComment.user.email.split('@')[0]}</p>

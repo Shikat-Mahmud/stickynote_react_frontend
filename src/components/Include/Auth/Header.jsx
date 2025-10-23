@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
+import { AuthContext } from '../../../contexts/AuthContext';
 import axios from 'axios';
+import { apiBaseUrl } from '../../../config';
 
 function Header() {
     const { user, setUser } = useContext(AuthContext);

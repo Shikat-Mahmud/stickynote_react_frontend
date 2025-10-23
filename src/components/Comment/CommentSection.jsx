@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
 import CommentCard from './CommentCard';
-import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
+import { apiBaseUrl } from '../../config';
+import { useAuth } from '../../contexts/AuthContext';
+import axiosClient from '../../utils/axiosClient';
 
 function CommentSection({ postId }) {
     const [comments, setComments] = useState([]);
     const [newCommentContent, setNewCommentContent] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
 
     const fetchComments = useCallback(async () => {
         try {
-            const response = await axios.get(`${apiBaseUrl}/posts/${postId}/comments`);
+            const response = await axiosClient.get(`${apiBaseUrl}/posts/${postId}/comments`);
             setComments(response.data);
             setLoading(false);
         } catch (err) {
@@ -34,7 +35,7 @@ function CommentSection({ postId }) {
         }
         if (!newCommentContent.trim()) return;
         try {
-            await axios.post(`${apiBaseUrl}/posts/${postId}/comments`, { content: newCommentContent });
+            await axiosClient.post(`${apiBaseUrl}/posts/${postId}/comments`, { content: newCommentContent });
             setNewCommentContent('');
             fetchComments(); // Refresh comments
         } catch (err) {

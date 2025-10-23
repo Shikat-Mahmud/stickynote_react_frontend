@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
-import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
+import React, { useState } from 'react';
 import '../../index.css';
 import Reactions from '../Reaction/Reactions';
+import { apiBaseUrl } from '../../config';
+import { useAuth } from '../../contexts/AuthContext';
+import axiosClient from '../../utils/axiosClient';
 
 const generateRandomReplyColor = () => {
     const colors = [
@@ -13,7 +14,7 @@ const generateRandomReplyColor = () => {
 };
 
 function ReplyCard({ reply, onReplyUpdate }) {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuth();
     const [randomCardColor] = useState(generateRandomReplyColor);
 
     const handleReaction = async (reactionType) => {
@@ -22,7 +23,7 @@ function ReplyCard({ reply, onReplyUpdate }) {
             return;
         }
         try {
-            await axios.post(`${apiBaseUrl}/replies/${reply.id}/react`, { type: reactionType });
+            await axiosClient.post(`${apiBaseUrl}/replies/${reply.id}/react`, { type: reactionType });
             onReplyUpdate();
         } catch (error) {
             console.error("Error reacting to reply:", error);
@@ -33,7 +34,7 @@ function ReplyCard({ reply, onReplyUpdate }) {
         <div className={`rounded-md shadow-xs p-3 text-xs border-l-2 ${randomCardColor} overflow-hidden wrap-break-word`}>
             <div className="flex items-center mb-1">
                 <img
-                        src="/public/assets/icons/male_avater.png"
+                        src="/assets/icons/male_avater.png"
                         alt="pin"
                         className="text-base mr-1 max-h-8"
                     />

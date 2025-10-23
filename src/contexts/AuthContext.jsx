@@ -1,5 +1,10 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
-export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+export const AuthContext = createContext({
+  user: null,
+  setUser: () => {},
+  loading: true,
+  checkUser: async () => {},
+});
 
-export const AuthContext = createContext();
+export const useAuth = () => useContext(AuthContext);

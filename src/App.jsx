@@ -1,66 +1,45 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './components/Auth/LoginPage';
-import RegisterPage from './components/Auth/RegisterPage';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 import Dashboard from './components/Dashboard/Dashboard';
 import NotFound from './components/NotFound';
-import Header from './components/Layout/Header';
-import { apiBaseUrl, AuthContext } from './contexts/AuthContext';
 import './index.css';
+import AuthLayout from './components/Layout/AuthLayout';
+import GuestLayout from './components/Layout/GuestLayout';
+import PublicLayout from './components/Layout/PublicLayout';
+import Home from './components/Public/Home';
+import About from './components/Public/About';
+import Contact from './components/Public/Contact';
+import AuthProvider from './contexts/AuthProvider';
 
-axios.defaults.withCredentials = true; // Important for Laravel Sanctum
+axios.defaults.withCredentials = true;
 
 function App() {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route element={<PublicLayout />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Route>
 
-    const checkUser = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (token) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            }
+          <Route element={<GuestLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
 
-            const response = await axios.get(`${apiBaseUrl}/user`);
-            setUser(response.data);
-        } catch (error) {
-            setUser(null);
-            console.error("Not logged in or session expired.", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+          <Route element={<AuthLayout />}>
+            <Route path="/" element={<Dashboard />} />
+          </Route>
 
-
-    useEffect(() => {
-        console.log("User in Dashboard:", user);
-    }, [user]);
-
-
-    useEffect(() => {
-        checkUser();
-    }, []);
-
-    if (loading) {
-        return <div className="flex justify-center items-center h-screen">Loading...</div>;
-    }
-
-    const authContextValue = { user, setUser, checkUser };
-
-    return (
-        <AuthContext.Provider value={authContextValue}>
-            <Router className="relative">
-                <Header className="w-full"/>
-                <Routes>
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </Router>
-        </AuthContext.Provider>
-    );
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
 export default App;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { X, PaperPlaneTilt } from 'phosphor-react';
-import { apiBaseUrl } from '../../contexts/AuthContext';
+import { apiBaseUrl } from '../../config';
+import axiosClient from '../../utils/axiosClient';
 
 const CreatePostModal = ({ user, onClose, onPostCreated }) => {
     const [content, setContent] = useState('');
@@ -17,13 +17,13 @@ const CreatePostModal = ({ user, onClose, onPostCreated }) => {
 
         try {
             setLoading(true);
-            await axios.post(`${apiBaseUrl}/posts`, {
+            await axiosClient.post(`${apiBaseUrl}/posts`, {
                 user_id: user.id,
                 content,
             });
             setContent('');
             onClose();
-            onPostCreated(); // refresh posts list
+            onPostCreated();
         } catch (err) {
             console.error('Error creating post:', err);
             setError('Failed to create post. Try again.');

@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import { apiBaseUrl } from '../../config';
+import { setPageTitle } from '../../utils/setPageTitle';
 
-function LoginPage() {
+function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -15,32 +17,26 @@ function LoginPage() {
         setError('');
 
         try {
-            // Get CSRF token
-            await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
-                withCredentials: true
-            });
-
-            // Attempt login
             const response = await axios.post(
                 `${apiBaseUrl}/login`,
                 { email, password },
                 { withCredentials: true }
             );
+
             localStorage.setItem('token', response.data.access_token);
 
-            console.log(response.data);
-
-            // Re-fetch user data
             await checkUser();
 
-            // Navigate to dashboard
-            navigate('/');
+            setTimeout(() => navigate('/'), 100);
         } catch (err) {
             console.error("Login error:", err.response ? err.response.data : err.message);
             setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
         }
     };
 
+    useEffect(() => {
+        setPageTitle('Login');
+    }, []);
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -89,4 +85,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default Login;

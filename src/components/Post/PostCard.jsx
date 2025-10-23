@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import CommentSection from '../Comment/CommentSection';
-import { AuthContext, apiBaseUrl } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import Reactions from '../Reaction/Reactions';
 import { timeAgo } from '../Utility/TimeAgo';
+import { apiBaseUrl } from '../../config';
+import axiosClient from '../../utils/axiosClient';
 
 const generateRandomColor = () => {
     const colors = [
@@ -20,8 +21,7 @@ const generateRandomColor = () => {
 
 function PostCard({ post, onPostUpdate }) {
     const [showComments, setShowComments] = useState(false);
-    const { user } = useContext(AuthContext);
-
+    const { user } = useAuth();
     const [randomCardColor] = useState(generateRandomColor);
 
     const handleReaction = async (reactionType) => {
@@ -30,7 +30,14 @@ function PostCard({ post, onPostUpdate }) {
             return;
         }
         try {
-            await axios.post(`${apiBaseUrl}/posts/${post.id}/react`, { type: reactionType });
+            const token = localStorage.getItem('token');
+            await axiosClient.post(
+                `${apiBaseUrl}/posts/${post.id}/react`,
+                { type: reactionType },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
             onPostUpdate();
         } catch (error) {
             console.error("Error reacting to post:", error);
@@ -38,19 +45,13 @@ function PostCard({ post, onPostUpdate }) {
     };
 
     return (
-        <div
-            className={`square-card relative p-6 w-96 max-w-full sm:max-w-sm border-t-4 ${randomCardColor} overflow-hidden wrap-break-words`}
-        >
-            <img
-                src="/public/assets/icons/alpin.svg"
-                alt="pin"
-                className="pin-icon"
-            />
+        <div className={`square-card relative p-6 w-96 max-w-full sm:max-w-sm border-t-4 ${randomCardColor} overflow-hidden`}>
+            <img src="/assets/icons/alpin.svg" alt="pin" className="pin-icon" />
 
             <div className="flex flex-row items-center justify-between mb-4">
                 <div className="flex items-center">
                     <img
-                        src="/public/assets/icons/male_avater.png"
+                        src="/assets/icons/male_avater.png"
                         alt="pin"
                         className="text-3xl mr-3 max-h-12"
                     />
@@ -58,28 +59,20 @@ function PostCard({ post, onPostUpdate }) {
                         <h3 className="text-lg font-semibold text-gray-800">{post.user.name}</h3>
                         <div className="flex items-center">
                             <p className="text-sm text-gray-600">@{post.user.email.split('@')[0]}</p>
-                            <span className="text-xs text-gray-500 ms-2">
-                                | {timeAgo(post.created_at)}
-                            </span>
+                            <span className="text-xs text-gray-500 ms-2">| {timeAgo(post.created_at)}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex">
-                <p className="text-gray-700 mb-4 whitespace-pre-wrap w-full">
-                    {post.content}
-                </p>
-            </div>
+            <p className="text-gray-700 mb-4 whitespace-pre-wrap w-full">{post.content}</p>
 
             <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
-                <div className="flex space-x-2">
-                    <Reactions
-                        reactionCounts={post.reaction_counts}
-                        onReact={handleReaction}
-                        isAuthenticated={!!user}
-                    />
-                </div>
+                <Reactions
+                    reactionCounts={post.reaction_counts}
+                    onReact={handleReaction}
+                    isAuthenticated={!!user}
+                />
                 <button
                     onClick={() => setShowComments(!showComments)}
                     className="flex items-center space-x-1 hover:text-gray-800"

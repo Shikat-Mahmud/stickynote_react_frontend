@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { apiBaseUrl } from '../../contexts/AuthContext';
+import { apiBaseUrl } from '../../config';
+import { setPageTitle } from '../../utils/setPageTitle';
 
-function RegisterPage() {
+function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,29 +13,32 @@ function RegisterPage() {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+        e.preventDefault();
+        setError('');
 
-    if (password !== passwordConfirmation) {
-        setError("Passwords do not match.");
-        return;
-    }
+        if (password !== passwordConfirmation) {
+            setError("Passwords do not match.");
+            return;
+        }
 
-    try {
-        await axios.post(`${apiBaseUrl}/register`, {
-            name,
-            email,
-            password,
-            password_confirmation: passwordConfirmation,
-        });
+        try {
+            await axios.post(`${apiBaseUrl}/register`, {
+                name,
+                email,
+                password,
+                password_confirmation: passwordConfirmation,
+            });
 
-        navigate('/login');
-    } catch (err) {
-        console.error("Registration error:", err.response ? err.response.data : err.message);
-        setError(err.response?.data?.message || 'Registration failed.');
-    }
-};
+            navigate('/login');
+        } catch (err) {
+            console.error("Registration error:", err.response ? err.response.data : err.message);
+            setError(err.response?.data?.message || 'Registration failed.');
+        }
+    };
 
+    useEffect(() => {
+        setPageTitle('Register');
+    }, []);
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -109,4 +113,4 @@ function RegisterPage() {
     );
 }
 
-export default RegisterPage;
+export default Register;
