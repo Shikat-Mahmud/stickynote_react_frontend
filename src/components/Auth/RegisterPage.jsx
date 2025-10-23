@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { apiBaseUrl } from '../../contexts/AuthContext';
 
 function RegisterPage() {
     const [name, setName] = useState('');
@@ -20,7 +21,7 @@ function RegisterPage() {
     }
 
     try {
-        await axios.post('http://localhost:8000/api/register', {
+        await axios.post(`${apiBaseUrl}/register`, {
             name,
             email,
             password,

@@ -1,11 +1,8 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import CommentSection from '../Comment/CommentSection';
-import { AuthContext } from '../../contexts/AuthContext';
-import '../../index.css'
+import { AuthContext, apiBaseUrl } from '../../contexts/AuthContext';
 import Reactions from '../Reaction/Reactions';
-
-const API_BASE_URL = 'http://localhost:8000/api';
 
 const generateRandomColor = () => {
     const colors = [
@@ -32,7 +29,7 @@ function PostCard({ post, onPostUpdate }) {
             return;
         }
         try {
-            await axios.post(`${API_BASE_URL}/posts/${post.id}/react`, { type: reactionType });
+            await axios.post(`${apiBaseUrl}/posts/${post.id}/react`, { type: reactionType });
             onPostUpdate();
         } catch (error) {
             console.error("Error reacting to post:", error);

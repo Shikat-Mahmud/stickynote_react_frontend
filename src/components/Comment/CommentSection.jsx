@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import CommentCard from './CommentCard';
-import { AuthContext } from '../../contexts/AuthContext';
-import '../../index.css';
-
-const API_BASE_URL = 'http://localhost:8000/api';
+import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
 
 function CommentSection({ postId }) {
     const [comments, setComments] = useState([]);
@@ -15,7 +12,7 @@ function CommentSection({ postId }) {
 
     const fetchComments = useCallback(async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/posts/${postId}/comments`);
+            const response = await axios.get(`${apiBaseUrl}/posts/${postId}/comments`);
             setComments(response.data);
             setLoading(false);
         } catch (err) {
@@ -37,7 +34,7 @@ function CommentSection({ postId }) {
         }
         if (!newCommentContent.trim()) return;
         try {
-            await axios.post(`${API_BASE_URL}/posts/${postId}/comments`, { content: newCommentContent });
+            await axios.post(`${apiBaseUrl}/posts/${postId}/comments`, { content: newCommentContent });
             setNewCommentContent('');
             fetchComments(); // Refresh comments
         } catch (err) {

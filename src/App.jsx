@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/Auth/LoginPage';
 import RegisterPage from './components/Auth/RegisterPage';
 import Dashboard from './components/Dashboard/Dashboard';
 import NotFound from './components/NotFound';
 import Header from './components/Layout/Header';
-import { AuthContext } from './contexts/AuthContext';
+import { apiBaseUrl, AuthContext } from './contexts/AuthContext';
 import './index.css';
 
 axios.defaults.withCredentials = true; // Important for Laravel Sanctum
@@ -22,7 +22,7 @@ function App() {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             }
 
-            const response = await axios.get('http://localhost:8000/api/user');
+            const response = await axios.get(`${apiBaseUrl}/user`);
             setUser(response.data);
         } catch (error) {
             setUser(null);

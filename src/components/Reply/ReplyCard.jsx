@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../contexts/AuthContext';
+import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
 import '../../index.css';
 import Reactions from '../Reaction/Reactions';
-
-const API_BASE_URL = 'http://localhost:8000/api';
 
 const generateRandomReplyColor = () => {
     const colors = [
@@ -24,7 +22,7 @@ function ReplyCard({ reply, onReplyUpdate }) {
             return;
         }
         try {
-            await axios.post(`${API_BASE_URL}/replies/${reply.id}/react`, { type: reactionType });
+            await axios.post(`${apiBaseUrl}/replies/${reply.id}/react`, { type: reactionType });
             onReplyUpdate();
         } catch (error) {
             console.error("Error reacting to reply:", error);

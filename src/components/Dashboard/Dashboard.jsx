@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import PostCard from '../Post/PostCard';
-import { AuthContext } from '../../contexts/AuthContext';
+import { AuthContext, apiBaseUrl } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import '../../index.css';
 import NewPostButton from '../Post/NewPostButton';
 import CreatePostModal from '../Post/CreatePost';
-
-const API_BASE_URL = 'http://localhost:8000/api';
 
 function Dashboard() {
     const [posts, setPosts] = useState([]);
@@ -26,7 +23,7 @@ function Dashboard() {
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/posts`);
+            const response = await axios.get(`${apiBaseUrl}/posts`);
             setPosts(response.data);
             setLoading(false);
         } catch (err) {
@@ -43,6 +40,7 @@ function Dashboard() {
     const handlePostCreated = () => {
         console.log('Post created successfully!');
         setShowModal(false);
+        fetchPosts();
     };
 
     if (loading) return <div className="text-center mt-8">Loading posts...</div>;
@@ -50,7 +48,7 @@ function Dashboard() {
 
     return (
         <div className="pb-4 bg-gray-50 min-h-screen relative">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-3 text-center">Recent Posts</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center">Recent Posts</h1>
             <div className="flex justify-center-safe flex-wrap gap-5">
                 {posts.map(post => (
                     <div key={post.id} className="inline-block mr-4 shrink-0">

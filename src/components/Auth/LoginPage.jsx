@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext';
+import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
 
 function LoginPage() {
     const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ function LoginPage() {
 
             // Attempt login
             const response = await axios.post(
-                'http://localhost:8000/api/login',
+                `${apiBaseUrl}/login`,
                 { email, password },
                 { withCredentials: true }
             );

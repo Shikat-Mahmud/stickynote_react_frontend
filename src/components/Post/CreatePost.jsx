@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { X, PaperPlaneTilt } from 'phosphor-react';
-
-const API_BASE_URL = 'http://localhost:8000/api';
+import { apiBaseUrl } from '../../contexts/AuthContext';
 
 const CreatePostModal = ({ user, onClose, onPostCreated }) => {
     const [content, setContent] = useState('');
@@ -18,7 +17,7 @@ const CreatePostModal = ({ user, onClose, onPostCreated }) => {
 
         try {
             setLoading(true);
-            await axios.post(`${API_BASE_URL}/posts`, {
+            await axios.post(`${apiBaseUrl}/posts`, {
                 user_id: user.id,
                 content,
             });

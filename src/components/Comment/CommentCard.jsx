@@ -1,11 +1,8 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import ReplyCard from '../Reply/ReplyCard';
-import { AuthContext } from '../../contexts/AuthContext';
-import '../../index.css';
+import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
 import Reactions from '../Reaction/Reactions';
-
-const API_BASE_URL = 'http://localhost:8000/api';
 
 const generateRandomCommentColor = () => {
     const colors = [
@@ -36,7 +33,7 @@ function CommentCard({ comment, onCommentUpdate }) {
             return;
         }
         try {
-            const response = await axios.post(`${API_BASE_URL}/comments/${currentComment.id}/react`, { type: reactionType });
+            const response = await axios.post(`${apiBaseUrl}/comments/${currentComment.id}/react`, { type: reactionType });
             
             const updatedCounts = response.data.reaction_counts || currentComment.reaction_counts;
 
@@ -76,7 +73,7 @@ function CommentCard({ comment, onCommentUpdate }) {
         setShowReplies(true);
 
         try {
-            await axios.post(`${API_BASE_URL}/comments/${currentComment.id}/replies`, { content: tempReply.content });
+            await axios.post(`${apiBaseUrl}/comments/${currentComment.id}/replies`, { content: tempReply.content });
             onCommentUpdate(); 
         } catch (err) {
             console.error("Error adding reply:", err);

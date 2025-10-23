@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext';
+import { apiBaseUrl, AuthContext } from '../../contexts/AuthContext';
 import axios from 'axios';
-import '../../index.css';
 
 function Header() {
     const { user, setUser } = useContext(AuthContext);
@@ -11,7 +10,7 @@ function Header() {
     const handleLogout = async () => {
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:8000/api/logout', null, {
+            await axios.post(`${apiBaseUrl}/logout`, null, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
