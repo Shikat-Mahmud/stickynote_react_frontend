@@ -32,7 +32,11 @@ function ReplyCard({ reply, onReplyUpdate }) {
     return (
         <div className={`rounded-md shadow-xs p-3 text-xs border-l-2 ${randomCardColor} overflow-hidden wrap-break-word`}>
             <div className="flex items-center mb-1">
-                <span className="text-base mr-1">👤</span>
+                <img
+                        src="/public/assets/icons/male_avater.png"
+                        alt="pin"
+                        className="text-base mr-1 max-h-8"
+                    />
                 <div>
                     <h6 className="font-medium text-gray-700">{reply.user.name}</h6>
                     <p className="text-xs text-gray-500">@{reply.user.email.split('@')[0]}</p>

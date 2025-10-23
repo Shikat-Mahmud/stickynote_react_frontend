@@ -43,16 +43,16 @@ function Dashboard() {
         fetchPosts();
     };
 
-    if (loading) return <div className="text-center mt-8">Loading posts...</div>;
+    if (loading) return <div className="text-center min-h-screen flex justify-center items-center font-stretch-expanded">Loading posts...</div>;
     if (error) return <div className="text-center mt-8 text-red-500">{error}</div>;
 
     return (
         <div className="pb-4 bg-gray-50 min-h-screen relative">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center">Recent Posts</h1>
-            <div className="flex justify-center-safe flex-wrap gap-5">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center">Recent Notes</h1>
+            <div className="flex justify-center-safe flex-wrap gap-5 items-start">
                 {posts.map(post => (
-                    <div key={post.id} className="inline-block mr-4 shrink-0">
-                        <PostCard post={post} onPostUpdate={fetchPosts} />
+                    <div key={post.id} className="w-full sm:w-auto flex justify-center px-4">
+                        <PostCard post={post} onPostUpdate={() => fetchPosts(apiBaseUrl)} />
                     </div>
                 ))}
             </div>

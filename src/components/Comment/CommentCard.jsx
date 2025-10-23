@@ -90,7 +90,11 @@ function CommentCard({ comment, onCommentUpdate }) {
     return (
         <div className={`rounded-lg shadow-sm p-4 text-sm border-l-4 ${randomCardColor}`}>
             <div className="flex items-center mb-2">
-                <span className="text-lg mr-2">👤</span>
+                <img
+                        src="/public/assets/icons/male_avater.png"
+                        alt="pin"
+                        className="text-lg mr-2 max-h-10"
+                    />
                 <div>
                     <h5 className="font-medium text-gray-800">{currentComment.user.name}</h5>
                     <p className="text-xs text-gray-500">@{currentComment.user.email.split('@')[0]}</p>
