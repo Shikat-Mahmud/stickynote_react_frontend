@@ -117,7 +117,7 @@ function CommentCard({ comment, onCommentUpdate }) {
                     />
                 </div>
                 <button onClick={() => setShowReplies(!showReplies)} className="flex items-center space-x-1 hover:text-gray-800">
-                    <span>↩️</span>
+                    <i className="ri-reply-line text-xl"></i>
                     <span>{currentComment.replies_count || 0} replies</span>
                 </button>
             </div>
@@ -128,7 +128,7 @@ function CommentCard({ comment, onCommentUpdate }) {
                         <form onSubmit={handleAddReply} className="mb-3 flex flex-row">
                             <input
                                 type="text"
-                                className="w-full p-1 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-300 text-xs"
+                                className="w-full p-1 border rounded-md focus:outline-none text-xs"
                                 placeholder="Write a reply..."
                                 value={newReplyContent}
                                 onChange={(e) => setNewReplyContent(e.target.value)}

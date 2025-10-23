@@ -53,7 +53,7 @@ function CommentSection({ postId }) {
             {user && (
                 <form onSubmit={handleAddComment} className="mb-4 flex flex-col">
                     <textarea
-                        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="w-full p-2 border rounded-md focus:outline-none"
                         rows="2"
                         placeholder="Write a comment..."
                         value={newCommentContent}

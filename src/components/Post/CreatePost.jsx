@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { X, PaperPlaneTilt } from 'phosphor-react';
 import { apiBaseUrl } from '../../config';
 import axiosClient from '../../utils/axiosClient';
 
@@ -39,7 +38,7 @@ const CreatePostModal = ({ user, onClose, onPostCreated }) => {
                     onClick={onClose}
                     className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
                 >
-                    <X size={22} />
+                    <i class="ri-close-large-line cursor-pointer"></i>
                 </button>
 
                 <h2 className="text-2xl font-semibold mb-4 text-gray-800 text-center">
@@ -52,7 +51,7 @@ const CreatePostModal = ({ user, onClose, onPostCreated }) => {
 
                 <form onSubmit={handleSubmit}>
                     <textarea
-                        className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-500 focus:outline-none resize-none"
+                        className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none resize-none"
                         rows="5"
                         placeholder="What's on your mind?"
                         value={content}
@@ -64,7 +63,7 @@ const CreatePostModal = ({ user, onClose, onPostCreated }) => {
                         disabled={loading}
                         className="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex justify-center items-center space-x-2 transition duration-200"
                     >
-                        <PaperPlaneTilt size={20} weight="fill" />
+                        <i class="ri-send-plane-fill text-xl"></i>
                         <span>{loading ? 'Posting...' : 'Post'}</span>
                     </button>
                 </form>

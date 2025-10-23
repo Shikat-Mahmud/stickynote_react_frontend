@@ -1,5 +1,4 @@
 import React from 'react';
-import { Plus } from 'phosphor-react';
 
 const NewPostButton = ({ onClick }) => {
     return (
@@ -8,7 +7,7 @@ const NewPostButton = ({ onClick }) => {
             style={{ height: '50px', width: '50px' }}
             className="bg-green-500 hover:bg-green-700 text-white font-bold rounded-full flex justify-center items-center cursor-pointer shadow-lg shadow-gray-400"
         >
-            <Plus size={20} weight="bold" />
+            <i className="ri-add-large-line text-xl"></i>
         </button>
     );
 };

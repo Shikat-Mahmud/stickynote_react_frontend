@@ -77,7 +77,7 @@ function PostCard({ post, onPostUpdate }) {
                     onClick={() => setShowComments(!showComments)}
                     className="flex items-center space-x-1 hover:text-gray-800"
                 >
-                    <span>💬</span>
+                    <i className="ri-chat-1-line text-xl"></i>
                     <span>{post.comments_count || 0} comments</span>
                 </button>
             </div>
