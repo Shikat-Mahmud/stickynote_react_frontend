@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import PostCard from '../Post/PostCard';
-import { useAuth } from '../../contexts/AuthContext';
+import PostCard from '../../Post/PostCard';
 import { useNavigate } from 'react-router-dom';
-import NewPostButton from '../Post/NewPostButton';
-import CreatePostModal from '../Post/CreatePost';
-import axiosClient from '../../utils/axiosClient';
-import { setPageTitle } from '../../utils/setPageTitle';
+import NewPostButton from '../../Post/NewPostButton';
+import CreatePostModal from '../../Post/CreatePost';
+import axiosClient from '../../../utils/axiosClient';
+import { setPageTitle } from '../../../utils/setPageTitle';
+import { useAuth } from '../../../contexts/AuthContext';
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);

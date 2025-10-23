@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { setPageTitle } from '../../utils/setPageTitle';
+import { setPageTitle } from '../../../utils/setPageTitle';
 
 const About = () => {
 
