@@ -1,0 +1,77 @@
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import PostCard from '../Post/PostCard';
+import { AuthContext } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import '../../index.css';
+import NewPostButton from '../Post/NewPostButton';
+import CreatePostModal from '../Post/CreatePost';
+
+const API_BASE_URL = 'http://localhost:8000/api';
+
+function Dashboard() {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+        fetchPosts();
+    }, [user, navigate]);
+
+    const fetchPosts = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/posts`);
+            setPosts(response.data);
+            setLoading(false);
+        } catch (err) {
+            setError('Failed to fetch posts.');
+            setLoading(false);
+            console.error("Error fetching posts:", err);
+        }
+    };
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCreatePost = () => setShowModal(true);
+
+    const handlePostCreated = () => {
+        console.log('Post created successfully!');
+        setShowModal(false);
+    };
+
+    if (loading) return <div className="text-center mt-8">Loading posts...</div>;
+    if (error) return <div className="text-center mt-8 text-red-500">{error}</div>;
+
+    return (
+        <div className="pb-4 bg-gray-50 min-h-screen relative">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 mt-3 text-center">Recent Posts</h1>
+            <div className="flex justify-center-safe flex-wrap gap-5">
+                {posts.map(post => (
+                    <div key={post.id} className="inline-block mr-4 shrink-0">
+                        <PostCard post={post} onPostUpdate={fetchPosts} />
+                    </div>
+                ))}
+            </div>
+            {user && (
+                <div className="fixed bottom-5 right-5">
+                    <NewPostButton onClick={handleCreatePost} />
+                    {showModal && (
+                        <CreatePostModal
+                            user={user}
+                            onClose={() => setShowModal(false)}
+                            onPostCreated={handlePostCreated}
+                        />
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}
+
+export default Dashboard;
