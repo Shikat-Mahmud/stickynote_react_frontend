@@ -2,22 +2,39 @@ import React, { useState } from 'react';
 import ReplyCard from '../Reply/ReplyCard';
 import { useAuth } from '../../../../contexts/AuthContext';
 import Reactions from '../../../../components/Reaction/Reactions';
-import { apiBaseUrl } from '../../../../config';
+import { apiBaseUrl, apiStorageUrl } from '../../../../config';
 import axiosClient from '../../../../utils/axiosClient';
 import { timeAgo } from '../../../../components/Utility/TimeAgo';
 
 const generateRandomCommentColor = () => {
     const colors = [
+        'bg-blue-100 border-blue-300',
+        'bg-green-100 border-green-300',
+        'bg-purple-100 border-purple-300',
+        'bg-yellow-100 border-yellow-300',
+        'bg-red-100 border-red-300',
+        'bg-indigo-100 border-indigo-300',
+        'bg-pink-100 border-pink-300',
         'bg-teal-100 border-teal-300',
         'bg-orange-100 border-orange-300',
         'bg-fuchsia-100 border-fuchsia-300',
         'bg-lime-100 border-lime-300',
+        'bg-cyan-100 border-cyan-300',
     ];
     return colors[Math.floor(Math.random() * colors.length)];
 };
 
+const generateRandomAvater = () => {
+    const avaters = [
+        'male_avater.png',
+        'female_avater.png',
+    ];
+    return avaters[Math.floor(Math.random() * avaters.length)];
+};
+
 function CommentCard({ comment, onCommentUpdate }) {
     const [currentComment, setCurrentComment] = useState(comment);
+    const [randomCardAvater] = useState(generateRandomAvater);
 
     React.useEffect(() => {
         setCurrentComment(comment);
@@ -93,9 +110,18 @@ function CommentCard({ comment, onCommentUpdate }) {
         <div className={`rounded-lg shadow-sm p-4 text-sm border-l-4 ${randomCardColor}`}>
             <div className="flex items-center mb-2">
                 <img
-                    src="/assets/icons/male_avater.png"
-                    alt="pin"
-                    className="text-lg mr-2 max-h-10"
+                    src={
+                        currentComment.user.avater ? `${apiStorageUrl}/${currentComment.user.avater}`
+                            : `/assets/icons/${currentComment.user?.gender == 'male'
+                                ? 'male_avater.png'
+                                : (currentComment.user?.gender == 'female'
+                                    ? 'female_avater.png'
+                                    : randomCardAvater
+                                )
+                            }`
+                    }
+                    alt="user"
+                    className="text-lg mr-2 max-h-10 h-10 w-10 rounded-full object-cover"
                 />
                 <div>
                     <h5 className="font-medium text-gray-800">{currentComment.user.name}</h5>

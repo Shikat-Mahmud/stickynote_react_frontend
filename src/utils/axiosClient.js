@@ -15,4 +15,16 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
+// 👇 Add helper for FormData PUT/PATCH
+axiosClient.putForm = (url, formData, config = {}) => {
+  if (formData instanceof FormData) {
+    formData.append('_method', 'PUT');
+    return axiosClient.post(url, formData, {
+      ...config,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  }
+  return axiosClient.put(url, formData, config);
+};
+
 export default axiosClient;

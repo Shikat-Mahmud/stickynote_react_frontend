@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
-import { apiBaseUrl } from '../../../config';
+import { apiBaseUrl, apiStorageUrl } from '../../../config';
 import axiosClient from '../../../utils/axiosClient';
 
 const generateRandomAvater = () => {
@@ -67,14 +67,14 @@ function Header() {
                             >
                                 <img
                                     src={
-                                        user.avater
-                                        || `/assets/icons/${user?.gender == 'male'
-                                            ? 'male_avater.png'
-                                            : (user?.gender == 'female'
-                                                ? 'female_avater.png'
-                                                : randomCardAvater
-                                            )
-                                        }`
+                                        user.avater ? `${apiStorageUrl}/${user.avater}`
+                                            : `/assets/icons/${user?.gender == 'male'
+                                                ? 'male_avater.png'
+                                                : (user?.gender == 'female'
+                                                    ? 'female_avater.png'
+                                                    : randomCardAvater
+                                                )
+                                            }`
                                     }
                                     alt="Profile"
                                     className="w-10 h-10 rounded-full border-2 border-white hover:border-green-400 transition-all object-cover"
