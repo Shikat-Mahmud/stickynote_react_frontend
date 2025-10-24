@@ -25,7 +25,7 @@ export default function Profile() {
             </div>
 
             {/* Right Content Area */}
-            <div className="w-full md:w-3/4 bg-white shadow-lg p-8 border-t-4 border-green-500">
+            <div className="w-full md:w-3/4 bg-white shadow-lg p-8 border-t-4 border-orange-400">
                 {activeTab === "profile" && <ProfileManageForm user={user} />}
                 {activeTab === "password" && <PasswordManageForm />}
             </div>

@@ -1,0 +1,11 @@
+
+@font-face {
+  font-family: 'Mochibop';
+  src: url('./fonts/Mochibop.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.mochibop-font {
+  font-family: 'Mochibop', sans-serif;
+}

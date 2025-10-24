@@ -142,13 +142,13 @@ function Register() {
                     <div className="flex flex-col sm:flex-row items-center justify-between">
                         <button
                             type="submit"
-                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto mb-3 sm:mb-0"
+                            className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto mb-3 sm:mb-0"
                         >
                             Register
                         </button>
                         <a
                             href="/login"
-                            className="text-sm text-blue-500 hover:text-blue-800 font-semibold p-2"
+                            className="text-sm text-blue-500 hover:text-blue-600 font-semibold p-2"
                         >
                             Already have an account? Login
                         </a>

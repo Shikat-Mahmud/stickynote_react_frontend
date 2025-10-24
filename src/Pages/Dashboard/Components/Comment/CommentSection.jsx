@@ -48,7 +48,7 @@ function CommentSection({ postId }) {
     if (error) return <div className="mt-4 text-center text-sm text-red-500">{error}</div>;
 
     return (
-        <div className="mt-4 border-t border-gray-300 pt-4">
+        <div className="mt-4 border-t border-gray-500 pt-4">
             <h4 className="text-md text-gray-800 font-semibold mb-3">Comments ({comments.length})</h4>
             {user && (
                 <form onSubmit={handleAddComment} className="mb-4 flex flex-col">

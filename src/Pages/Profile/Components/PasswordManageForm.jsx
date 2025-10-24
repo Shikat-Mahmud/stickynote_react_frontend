@@ -46,7 +46,7 @@ export default function PasswordManageForm() {
 
       <button
         type="submit"
-        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+        className="bg-orange-400 text-white px-4 py-2 rounded-lg hover:bg-orange-500 transition"
       >
         Update Password
       </button>

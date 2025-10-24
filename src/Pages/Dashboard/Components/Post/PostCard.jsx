@@ -86,7 +86,7 @@ function PostCard({ post, onPostUpdate }) {
                 </div>
             </div>
 
-            <p className="text-gray-700 mb-4 whitespace-pre-wrap w-full">{post.content}</p>
+            <p className="font-medium text-gray-700 mb-4 whitespace-pre-wrap w-full">{post.content}</p>
 
             <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
                 <Reactions

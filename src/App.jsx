@@ -6,6 +6,7 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import Profile from './Pages/Profile/Profile';
 import NotFound from './Pages/NotFound';
 import './index.css';
+import './font.css';
 import AuthLayout from './components/Layout/AuthLayout';
 import GuestLayout from './components/Layout/GuestLayout';
 import PublicLayout from './components/Layout/PublicLayout';
