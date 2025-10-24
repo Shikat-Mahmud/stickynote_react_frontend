@@ -4,11 +4,21 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import { apiBaseUrl } from '../../../config';
 import axiosClient from '../../../utils/axiosClient';
 
+const generateRandomAvater = () => {
+    const avaters = [
+        'male_avater.png',
+        'female_avater.png',
+    ];
+    return avaters[Math.floor(Math.random() * avaters.length)];
+};
+
 function Header() {
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const [randomCardAvater] = useState(generateRandomAvater);
+
 
     const handleLogout = async () => {
         try {
@@ -55,7 +65,16 @@ function Header() {
                                 className="focus:outline-none cursor-pointer"
                             >
                                 <img
-                                    src={user.avatar || '/assets/icons/male_avater.png'}
+                                    src={
+                                        user.avater
+                                        || `/assets/icons/${user?.gender == 'male'
+                                            ? 'male_avater.png'
+                                            : (user?.gender == 'female'
+                                                ? 'female_avater.png'
+                                                : randomCardAvater
+                                            )
+                                        }`
+                                    }
                                     alt="Profile"
                                     className="w-10 h-10 rounded-full border-2 border-white hover:border-green-400 transition-all object-cover"
                                 />

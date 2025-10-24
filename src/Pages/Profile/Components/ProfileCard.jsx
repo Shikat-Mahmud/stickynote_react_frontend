@@ -1,13 +1,23 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileTabs from "./ProfileTabs";
 import axiosClient from "../../../utils/axiosClient";
 import { apiBaseUrl } from "../../../config";
 import { AuthContext } from "../../../contexts/AuthContext";
 
+const generateRandomAvater = () => {
+    const avaters = [
+        'male_avater.png',
+        'female_avater.png',
+    ];
+    return avaters[Math.floor(Math.random() * avaters.length)];
+};
+
 export default function ProfileCard({ activeTab, setActiveTab }) {
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [randomCardAvater] = useState(generateRandomAvater);
+
 
     const handleLogout = async () => {
         try {
@@ -30,7 +40,16 @@ export default function ProfileCard({ activeTab, setActiveTab }) {
 
             <div className="flex flex-col items-center text-center">
                 <img
-                    src={user.avatar || `/assets/icons/male_avater.png`}
+                    src={
+                        user.avater
+                        || `/assets/icons/${user?.gender == 'male'
+                            ? 'male_avater.png'
+                            : (user?.gender == 'female'
+                                ? 'female_avater.png'
+                                : randomCardAvater
+                            )
+                        }`
+                    }
                     alt="Profile"
                     className="w-24 h-24 rounded-full border-4 border-green-500 object-cover mb-4"
                 />

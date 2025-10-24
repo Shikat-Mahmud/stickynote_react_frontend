@@ -60,7 +60,16 @@ function PostCard({ post, onPostUpdate }) {
             <div className="flex flex-row items-center justify-between mb-4">
                 <div className="flex items-center">
                     <img
-                        src={post.user.avater || `/assets/icons/${randomCardAvater}`}
+                        src={
+                            post.user.avater
+                            || `/assets/icons/${post.user?.gender == 'male'
+                                ? 'male_avater.png'
+                                : (post.user?.gender == 'female'
+                                    ? 'female_avater.png'
+                                    : randomCardAvater
+                                )
+                            }`
+                        }
                         alt="pin"
                         className="text-3xl mr-3 max-h-12"
                     />
