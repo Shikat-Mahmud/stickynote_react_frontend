@@ -5,7 +5,6 @@ import NewPostButton from '../../components/Post/NewPostButton';
 import CreatePostModal from '../../components/Post/CreatePost';
 import axiosClient from '../../utils/axiosClient';
 import { useAuth } from '../../contexts/AuthContext';
-import { setPageTitle } from '../../utils/setPageTitle';
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
@@ -20,7 +19,6 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPageTitle('Dashboard');
 
     if (loading) return;
     if (!user) {
