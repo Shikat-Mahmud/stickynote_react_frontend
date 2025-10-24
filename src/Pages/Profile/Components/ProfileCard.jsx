@@ -54,7 +54,10 @@ export default function ProfileCard({ activeTab, setActiveTab }) {
                     className="w-24 h-24 rounded-full border-4 border-green-500 object-cover mb-4"
                 />
                 <h2 className="text-xl font-bold text-gray-800">{user.name}</h2>
-                <p className="text-gray-500 text-sm mb-4">{user.email}</p>
+                <p className="text-gray-500 text-sm mb-4">
+                    {user.uid} <br />
+                    {user.email}
+                </p>
 
                 <ProfileTabs
                     activeTab={activeTab}

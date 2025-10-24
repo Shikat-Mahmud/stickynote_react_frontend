@@ -20,7 +20,7 @@ export default function PasswordManageForm() {
           type="password"
           value={current}
           onChange={(e) => setCurrent(e.target.value)}
-          className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+          className="w-full border rounded-lg p-2 focus:outline-none"
         />
       </div>
 
@@ -30,7 +30,7 @@ export default function PasswordManageForm() {
           type="password"
           value={newPass}
           onChange={(e) => setNewPass(e.target.value)}
-          className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+          className="w-full border rounded-lg p-2 focus:outline-none"
         />
       </div>
 
@@ -40,7 +40,7 @@ export default function PasswordManageForm() {
           type="password"
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
-          className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+          className="w-full border rounded-lg p-2 focus:outline-none"
         />
       </div>
 

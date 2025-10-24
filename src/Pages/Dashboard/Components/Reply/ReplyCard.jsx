@@ -3,6 +3,7 @@ import Reactions from '../../../../components/Reaction/Reactions';
 import { apiBaseUrl } from '../../../../config';
 import { useAuth } from '../../../../contexts/AuthContext';
 import axiosClient from '../../../../utils/axiosClient';
+import { timeAgo } from '../../../../components/Utility/TimeAgo';
 
 const generateRandomReplyColor = () => {
     const colors = [
@@ -33,13 +34,19 @@ function ReplyCard({ reply, onReplyUpdate }) {
         <div className={`rounded-md shadow-xs p-3 text-xs border-l-2 ${randomCardColor} overflow-hidden wrap-break-word`}>
             <div className="flex items-center mb-1">
                 <img
-                        src="/assets/icons/male_avater.png"
-                        alt="pin"
-                        className="text-base mr-1 max-h-8"
-                    />
+                    src="/assets/icons/male_avater.png"
+                    alt="pin"
+                    className="text-base mr-1 max-h-8"
+                />
                 <div>
-                    <h6 className="font-medium text-gray-700">{reply.user.name}</h6>
-                    <p className="text-xs text-gray-500">@{reply.user.email.split('@')[0]}</p>
+                    <h6 className="font-medium text-gray-800">{reply.user.name}</h6>
+                    <div className="flex items-center">
+                        <p className="text-gray-600" style={{fontSize: '10px'}}>{reply.user.uid}</p>
+                        <span className="text-gray-500 ms-2" style={{fontSize: '10px'}}>
+                            <i className="ri-time-line pe-0.5"></i>
+                            {timeAgo(reply.created_at)}
+                        </span>
+                    </div>
                 </div>
             </div>
 

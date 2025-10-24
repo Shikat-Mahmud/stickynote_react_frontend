@@ -49,7 +49,8 @@ function Header() {
 
     return (
         <header className="bg-gray-800 text-white p-4 flex justify-between items-center sticky top-0 right-0 left-0 z-50 shadow-md">
-            <Link to="/" className="text-2xl font-bold tracking-wide">
+            <Link to="/" className="text-2xl font-bold tracking-wide flex items-center">
+                <img src="/assets/icons/alpin.svg" alt="icon" className="h-7 pe-1" />
                 StickyNote
             </Link>
 

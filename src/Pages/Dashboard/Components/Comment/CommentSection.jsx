@@ -49,7 +49,7 @@ function CommentSection({ postId }) {
 
     return (
         <div className="mt-4 border-t border-gray-300 pt-4">
-            <h4 className="text-md font-semibold mb-3">Comments ({comments.length})</h4>
+            <h4 className="text-md text-gray-800 font-semibold mb-3">Comments ({comments.length})</h4>
             {user && (
                 <form onSubmit={handleAddComment} className="mb-4 flex flex-col">
                     <textarea
@@ -59,7 +59,7 @@ function CommentSection({ postId }) {
                         value={newCommentContent}
                         onChange={(e) => setNewCommentContent(e.target.value)}
                     ></textarea>
-                    <button type="submit" className="mt-2 bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded">
+                    <button type="submit" className="mt-2 bg-gray-700 hover:bg-gray-800 text-white text-sm py-1 px-3 rounded">
                         Add Comment
                     </button>
                 </form>

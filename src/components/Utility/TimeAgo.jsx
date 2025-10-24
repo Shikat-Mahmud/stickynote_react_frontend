@@ -42,5 +42,5 @@ export const timeAgo = (date) => {
         return interval + (interval === 1 ? " minute ago" : " min ago");
     }
 
-    return Math.floor(seconds) + (seconds <= 10 ? " secs ago" : " secs ago");
+    return Math.floor(seconds) + (seconds <= 10 ? " sec ago" : " sec ago");
 };

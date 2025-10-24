@@ -20,7 +20,7 @@ export default function ProfileManageForm({ user }) {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+          className="w-full border rounded-lg p-2 focus:outline-none"
         />
       </div>
 
@@ -30,8 +30,28 @@ export default function ProfileManageForm({ user }) {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full border rounded-lg p-2 bg-gray-100 text-gray-500"
+          className="w-full border rounded-lg p-2 focus:outline-none"
         />
+      </div>
+
+      <div>
+        <label htmlFor="gender" className="block text-gray-700 font-medium mb-1">Gender</label>
+        <select name="gender" id="gender" className="w-full border rounded-lg p-2 focus:outline-none">
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="country" className="block text-gray-700 font-medium mb-1">Country</label>
+        <select name="country" id="country" className="w-full border rounded-lg p-2 focus:outline-none">
+          <option value="">Select Country</option>
+          <option value="Bangladesh">Bangladesh</option>
+          <option value="India">India</option>
+          <option value="Pakistan">Pakistan</option>
+        </select>
       </div>
 
       <div>
@@ -41,7 +61,7 @@ export default function ProfileManageForm({ user }) {
           value={avatar}
           onChange={(e) => setAvatar(e.target.value)}
           placeholder="Image URL"
-          className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+          className="w-full border rounded-lg p-2 focus:outline-none"
         />
       </div>
 

@@ -76,8 +76,11 @@ function PostCard({ post, onPostUpdate }) {
                     <div>
                         <h3 className="text-lg font-semibold text-gray-800">{post.user.name}</h3>
                         <div className="flex items-center">
-                            <p className="text-sm text-gray-600">@{post.user.email.split('@')[0]}</p>
-                            <span className="text-xs text-gray-500 ms-2">| {timeAgo(post.created_at)}</span>
+                            <p className="text-sm text-gray-600">{post.user.uid}</p>
+                            <span className="text-xs text-gray-500 ms-2">
+                                <i className="ri-time-line pe-0.5"></i>
+                                {timeAgo(post.created_at)}
+                            </span>
                         </div>
                     </div>
                 </div>

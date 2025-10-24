@@ -4,6 +4,7 @@ import { useAuth } from '../../../../contexts/AuthContext';
 import Reactions from '../../../../components/Reaction/Reactions';
 import { apiBaseUrl } from '../../../../config';
 import axiosClient from '../../../../utils/axiosClient';
+import { timeAgo } from '../../../../components/Utility/TimeAgo';
 
 const generateRandomCommentColor = () => {
     const colors = [
@@ -98,7 +99,13 @@ function CommentCard({ comment, onCommentUpdate }) {
                 />
                 <div>
                     <h5 className="font-medium text-gray-800">{currentComment.user.name}</h5>
-                    <p className="text-xs text-gray-500">@{currentComment.user.email.split('@')[0]}</p>
+                    <div className="flex items-center">
+                        <p className="text-xs text-gray-600">{currentComment.user.uid}</p>
+                        <span className="text-xs text-gray-500 ms-2">
+                            <i className="ri-time-line pe-0.5"></i>
+                            {timeAgo(currentComment.created_at)}
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -133,7 +140,7 @@ function CommentCard({ comment, onCommentUpdate }) {
                                 value={newReplyContent}
                                 onChange={(e) => setNewReplyContent(e.target.value)}
                             />
-                            <button type="submit" className="ms-1 bg-indigo-500 hover:bg-indigo-600 text-white text-xs py-0.5 px-2 rounded">
+                            <button type="submit" className="ms-1 bg-gray-700 hover:bg-gray-800 text-white text-xs py-0.5 px-2 rounded">
                                 Reply
                             </button>
                         </form>
