@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import PostCard from '../../components/Post/PostCard';
 import { useNavigate } from 'react-router-dom';
-import NewPostButton from '../../components/Post/NewPostButton';
-import CreatePostModal from '../../components/Post/CreatePost';
+import CreatePostModal from './Components/Post/CreatePost';
 import axiosClient from '../../utils/axiosClient';
 import { useAuth } from '../../contexts/AuthContext';
+import PostCard from './Components/Post/PostCard';
+import NewPostButton from './Components/Post/NewPostButton';
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
@@ -61,6 +61,18 @@ function Dashboard() {
     }
   }, [page, hasMore, isFetchingMore]);
 
+  const handlePostRefresh = async (postId) => {
+    try {
+      const res = await axiosClient.get(`/posts/${postId}`);
+      const updatedPost = res.data;
+      setPosts((prev) =>
+        prev.map((p) => (p.id === postId ? updatedPost : p))
+      );
+    } catch (err) {
+      console.error("Failed to refresh post:", err);
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -98,7 +110,7 @@ function Dashboard() {
             key={post.id}
             className="w-full sm:w-auto flex justify-center px-4"
           >
-            <PostCard post={post} onPostUpdate={() => fetchPosts(1, true)} />
+            <PostCard post={post} onPostUpdate={() => handlePostRefresh(post.id)} />
           </div>
         ))}
       </div>

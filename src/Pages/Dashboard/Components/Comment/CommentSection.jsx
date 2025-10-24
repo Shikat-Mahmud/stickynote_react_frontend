@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import CommentCard from './CommentCard';
-import { apiBaseUrl } from '../../config';
-import { useAuth } from '../../contexts/AuthContext';
-import axiosClient from '../../utils/axiosClient';
+import { apiBaseUrl } from '../../../../config';
+import { useAuth } from '../../../../contexts/AuthContext';
+import axiosClient from '../../../../utils/axiosClient';
 
 function CommentSection({ postId }) {
     const [comments, setComments] = useState([]);

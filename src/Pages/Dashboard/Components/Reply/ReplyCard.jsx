@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import '../../index.css';
-import Reactions from '../Reaction/Reactions';
-import { apiBaseUrl } from '../../config';
-import { useAuth } from '../../contexts/AuthContext';
-import axiosClient from '../../utils/axiosClient';
+import Reactions from '../../../../components/Reaction/Reactions';
+import { apiBaseUrl } from '../../../../config';
+import { useAuth } from '../../../../contexts/AuthContext';
+import axiosClient from '../../../../utils/axiosClient';
 
 const generateRandomReplyColor = () => {
     const colors = [

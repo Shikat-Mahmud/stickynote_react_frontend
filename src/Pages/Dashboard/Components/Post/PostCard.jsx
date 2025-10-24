@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import CommentSection from '../Comment/CommentSection';
-import { useAuth } from '../../contexts/AuthContext';
-import Reactions from '../Reaction/Reactions';
-import { timeAgo } from '../Utility/TimeAgo';
-import { apiBaseUrl } from '../../config';
-import axiosClient from '../../utils/axiosClient';
+import { timeAgo } from '../../../../components/Utility/TimeAgo';
+import { useAuth } from '../../../../contexts/AuthContext';
+import Reactions from '../../../../components/Reaction/Reactions';
+import { apiBaseUrl } from '../../../../config';
+import axiosClient from '../../../../utils/axiosClient';
 
 const generateRandomColor = () => {
     const colors = [
@@ -87,7 +87,7 @@ function PostCard({ post, onPostUpdate }) {
                     className="flex items-center space-x-1 hover:text-gray-800"
                 >
                     <i className="ri-chat-1-line text-xl"></i>
-                    <span>{post.comments_count || 0} comments</span>
+                    <span>{post.comments_count || post.comments.length || 0} comments</span>
                 </button>
             </div>
 

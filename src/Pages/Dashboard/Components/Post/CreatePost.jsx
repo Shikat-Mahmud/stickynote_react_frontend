@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { apiBaseUrl } from '../../config';
-import axiosClient from '../../utils/axiosClient';
+import { apiBaseUrl } from '../../../../config';
+import axiosClient from '../../../../utils/axiosClient';
 
 const CreatePostModal = ({ user, onClose, onPostCreated }) => {
     const [content, setContent] = useState('');
