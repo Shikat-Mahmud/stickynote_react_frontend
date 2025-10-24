@@ -19,10 +19,19 @@ const generateRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
 };
 
+const generateRandomAvater = () => {
+    const avaters = [
+        'male_avater.png',
+        'female_avater.png',
+    ];
+    return avaters[Math.floor(Math.random() * avaters.length)];
+};
+
 function PostCard({ post, onPostUpdate }) {
     const [showComments, setShowComments] = useState(false);
     const { user } = useAuth();
     const [randomCardColor] = useState(generateRandomColor);
+    const [randomCardAvater] = useState(generateRandomAvater);
 
     const handleReaction = async (reactionType) => {
         if (!user) {
@@ -51,7 +60,7 @@ function PostCard({ post, onPostUpdate }) {
             <div className="flex flex-row items-center justify-between mb-4">
                 <div className="flex items-center">
                     <img
-                        src="/assets/icons/male_avater.png"
+                        src={post.user.avater || `/assets/icons/${randomCardAvater}`}
                         alt="pin"
                         className="text-3xl mr-3 max-h-12"
                     />
