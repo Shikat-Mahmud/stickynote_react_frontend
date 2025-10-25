@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { apiBaseUrl, apiStorageUrl } from "../../../config";
 import axiosClient from "../../../utils/axiosClient";
+import axios from "axios";
 
 export default function ProfileManageForm({ user }) {
   const [formData, setFormData] = useState({
@@ -13,6 +14,23 @@ export default function ProfileManageForm({ user }) {
   const [preview, setPreview] = useState(user?.avater ? `${apiStorageUrl}/${user.avater}` : "");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [countries, setCountries] = useState([]); // 🆕
+
+  // 🆕 Fetch countries on mount
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const res = await axios.get("https://restcountries.com/v3.1/all?fields=name,cca2");
+        const sorted = res.data
+          .map((country) => country.name.common)
+          .sort((a, b) => a.localeCompare(b));
+        setCountries(sorted);
+      } catch (error) {
+        console.error("Failed to load countries:", error);
+      }
+    };
+    fetchCountries();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,16 +53,13 @@ export default function ProfileManageForm({ user }) {
     try {
       const data = new FormData();
       Object.entries(formData).forEach(([key, value]) => data.append(key, value));
-
       if (avatarFile) data.append("avater", avatarFile);
 
       const res = await axiosClient.putForm(`${apiBaseUrl}/profile/${user.id}`, data);
-
       if (res.data.success) {
         setMessage("✅ Profile updated successfully!");
       } else {
         setMessage("❌ Failed to update profile");
-        console.error(res.data.errors || res.data);
       }
     } catch (error) {
       console.error("Update error:", error);
@@ -55,10 +70,7 @@ export default function ProfileManageForm({ user }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-4"
-    >
+    <form onSubmit={handleSubmit} className="space-y-4">
       <h2 className="text-2xl font-bold text-gray-800 mb-2">Profile Management</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -114,29 +126,27 @@ export default function ProfileManageForm({ user }) {
             className="w-full border rounded-lg p-2 focus:outline-none"
           >
             <option value="">Select Country</option>
-            <option value="Bangladesh">Bangladesh</option>
-            <option value="India">India</option>
-            <option value="Pakistan">Pakistan</option>
+            {countries.length > 0 ? (
+              countries.map((country) => (
+                <option key={country} value={country}>{country}</option>
+              ))
+            ) : (
+              <option disabled>Loading countries...</option>
+            )}
           </select>
         </div>
       </div>
 
       <div>
-        <label
-          htmlFor="avater"
-          className="block text-gray-700 font-medium mb-1"
-        >
-          Profile Picture
-        </label>
-
+        <label htmlFor="avater" className="block text-gray-700 font-medium mb-1">Profile Picture</label>
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           {preview && (
             <label htmlFor="avater" className="cursor-pointer">
-            <img
-              src={preview}
-              alt="Preview"
-              className="w-16 h-16 rounded-full object-cover border border-gray-300 mx-auto sm:mx-0"
-            />
+              <img
+                src={preview}
+                alt="Preview"
+                className="w-16 h-16 rounded-full object-cover border border-gray-300 mx-auto sm:mx-0"
+              />
             </label>
           )}
           <input
@@ -150,23 +160,19 @@ export default function ProfileManageForm({ user }) {
         </div>
       </div>
 
-      {/* Submit Button */}
       <div className="pt-2">
         <button
           type="submit"
           disabled={loading}
-          className={`bg-orange-400 text-white px-5 py-2.5 rounded-lg hover:bg-orange-500 transition ${loading ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+          className={`bg-orange-400 text-white px-5 py-2.5 rounded-lg hover:bg-orange-500 transition ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
         >
           {loading ? "Saving..." : "Save Changes"}
         </button>
       </div>
 
-      {/* Message */}
       {message && (
         <div
-          className={`text-sm font-medium mt-2 ${message.includes("✅") ? "text-green-600" : "text-red-500"
-            }`}
+          className={`text-sm font-medium mt-2 ${message.includes("✅") ? "text-green-600" : "text-red-500"}`}
         >
           {message}
         </div>
