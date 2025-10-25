@@ -61,71 +61,83 @@ export default function ProfileManageForm({ user }) {
     >
       <h2 className="text-2xl font-bold text-gray-800 mb-2">Profile Management</h2>
 
-      <div>
-        <label htmlFor="name" className="block text-gray-700 font-medium mb-1">Name</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
-        />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="name" className="block text-gray-700 font-medium mb-1">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-gray-700 font-medium mb-1">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="gender" className="block text-gray-700 font-medium mb-1">Gender</label>
+          <select
+            name="gender"
+            id="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2 focus:outline-none"
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="country" className="block text-gray-700 font-medium mb-1">Country</label>
+          <select
+            name="country"
+            id="country"
+            value={formData.country}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2 focus:outline-none"
+          >
+            <option value="">Select Country</option>
+            <option value="Bangladesh">Bangladesh</option>
+            <option value="India">India</option>
+            <option value="Pakistan">Pakistan</option>
+          </select>
+        </div>
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-gray-700 font-medium mb-1">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="gender" className="block text-gray-700 font-medium mb-1">Gender</label>
-        <select
-          name="gender"
-          id="gender"
-          value={formData.gender}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+        <label
+          htmlFor="avater"
+          className="block text-gray-700 font-medium mb-1"
         >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
+          Profile Picture
+        </label>
 
-      <div>
-        <label htmlFor="country" className="block text-gray-700 font-medium mb-1">Country</label>
-        <select
-          name="country"
-          id="country"
-          value={formData.country}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
-        >
-          <option value="">Select Country</option>
-          <option value="Bangladesh">Bangladesh</option>
-          <option value="India">India</option>
-          <option value="Pakistan">Pakistan</option>
-        </select>
-      </div>
-
-      <div>
-        <label htmlFor="avater" className="block text-gray-700 font-medium mb-1">Profile Picture</label>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           {preview && (
+            <label htmlFor="avater" className="cursor-pointer">
             <img
               src={preview}
               alt="Preview"
-              className="w-16 h-16 rounded-full object-cover border border-gray-300"
+              className="w-16 h-16 rounded-full object-cover border border-gray-300 mx-auto sm:mx-0"
             />
+            </label>
           )}
           <input
             type="file"
@@ -133,7 +145,7 @@ export default function ProfileManageForm({ user }) {
             id="avater"
             accept="image/*"
             onChange={handleAvatarChange}
-            className="block text-sm text-gray-700"
+            className="block text-sm text-gray-700 w-full sm:w-auto"
           />
         </div>
       </div>
