@@ -56,8 +56,11 @@ function Header() {
 
             <nav>
                 {user ? (
-                    <div className="flex items-center space-x-4 relative" ref={dropdownRef}>
-                        <span className="hidden sm:inline">Welcome, {user.name.trim().split(" ")[0]}!</span>
+                    <div className="flex items-center space-x-2 relative" ref={dropdownRef}>
+                        <div className="flex flex-col">
+                            <span>Welcome, {user.name?.trim().split(" ")[0] || ''}!</span>
+                            <span><i className="ri-coin-line me-2"></i>{user.totalCredits || 0}</span>
+                        </div>
 
                         {/* Profile Button Wrapper */}
                         <div className="relative">
