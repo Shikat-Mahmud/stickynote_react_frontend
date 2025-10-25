@@ -6,6 +6,7 @@ import Reactions from '../../../../components/Reaction/Reactions';
 import { apiBaseUrl, apiStorageUrl } from '../../../../config';
 import axiosClient from '../../../../utils/axiosClient';
 import CountryFlag from '../../../../components/Utility/CountryFlag';
+import FollowButton from '../../../../components/Follow/FollowButton';
 
 const generateRandomColor = () => {
     const colors = [
@@ -85,6 +86,7 @@ function PostCard({ post, onPostUpdate }) {
                             {post.user.country && (
                                 <CountryFlag countryName={post.user.country} />
                             )}
+                            <FollowButton targetUserId={post.user.id} initialFollowing={post.user.is_following} className="ms-3" />
                         </h3>
                         <div className="flex items-center">
                             <p className="text-sm text-gray-600">{post.user.uid}</p>
