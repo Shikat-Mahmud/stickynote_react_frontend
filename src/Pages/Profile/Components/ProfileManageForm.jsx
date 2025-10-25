@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { apiBaseUrl, apiStorageUrl } from "../../../config";
 import axiosClient from "../../../utils/axiosClient";
-import axios from "axios";
+import CountrySelect from "../../../components/Utility/CountrySelect";
 
 export default function ProfileManageForm({ user }) {
   const [formData, setFormData] = useState({
@@ -14,23 +14,6 @@ export default function ProfileManageForm({ user }) {
   const [preview, setPreview] = useState(user?.avater ? `${apiStorageUrl}/${user.avater}` : "");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [countries, setCountries] = useState([]); // 🆕
-
-  // 🆕 Fetch countries on mount
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const res = await axios.get("https://restcountries.com/v3.1/all?fields=name,cca2");
-        const sorted = res.data
-          .map((country) => country.name.common)
-          .sort((a, b) => a.localeCompare(b));
-        setCountries(sorted);
-      } catch (error) {
-        console.error("Failed to load countries:", error);
-      }
-    };
-    fetchCountries();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -118,22 +101,10 @@ export default function ProfileManageForm({ user }) {
 
         <div>
           <label htmlFor="country" className="block text-gray-700 font-medium mb-1">Country</label>
-          <select
-            name="country"
-            id="country"
+          <CountrySelect
             value={formData.country}
             onChange={handleChange}
-            className="w-full border rounded-lg p-2 focus:outline-none"
-          >
-            <option value="">Select Country</option>
-            {countries.length > 0 ? (
-              countries.map((country) => (
-                <option key={country} value={country}>{country}</option>
-              ))
-            ) : (
-              <option disabled>Loading countries...</option>
-            )}
-          </select>
+          />
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import { useAuth } from '../../../../contexts/AuthContext';
 import Reactions from '../../../../components/Reaction/Reactions';
 import { apiBaseUrl, apiStorageUrl } from '../../../../config';
 import axiosClient from '../../../../utils/axiosClient';
+import CountryFlag from '../../../../components/Utility/CountryFlag';
 
 const generateRandomColor = () => {
     const colors = [
@@ -66,20 +67,25 @@ function PostCard({ post, onPostUpdate }) {
                 <div className="flex items-center">
                     <img
                         src={
-                            post.user.avater ? `${apiStorageUrl}/${post.user.avater}` 
-                            : `/assets/icons/${post.user?.gender == 'male'
-                                ? 'male_avater.png'
-                                : (post.user?.gender == 'female'
-                                    ? 'female_avater.png'
-                                    : randomCardAvater
-                                )
-                            }`
+                            post.user.avater ? `${apiStorageUrl}/${post.user.avater}`
+                                : `/assets/icons/${post.user?.gender == 'male'
+                                    ? 'male_avater.png'
+                                    : (post.user?.gender == 'female'
+                                        ? 'female_avater.png'
+                                        : randomCardAvater
+                                    )
+                                }`
                         }
                         alt="user"
                         className="text-3xl mr-3 max-h-12 h-12 w-12 rounded-full object-cover"
                     />
                     <div>
-                        <h3 className="text-lg font-semibold text-gray-800">{post.user.name}</h3>
+                        <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-1">
+                            {post.user.name}
+                            {post.user.country && (
+                                <CountryFlag countryName={post.user.country} />
+                            )}
+                        </h3>
                         <div className="flex items-center">
                             <p className="text-sm text-gray-600">{post.user.uid}</p>
                             <span className="text-xs text-gray-500 ms-2">
