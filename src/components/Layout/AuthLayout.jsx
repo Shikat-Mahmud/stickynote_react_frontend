@@ -22,7 +22,7 @@ const AuthLayout = () => {
     }
 
     return (
-        <div className="mochibop-font">
+        <div>
             <Header />
             <main>
                 <Outlet />

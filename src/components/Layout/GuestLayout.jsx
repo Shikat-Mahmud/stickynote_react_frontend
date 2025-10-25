@@ -21,7 +21,7 @@ const GuestLayout = () => {
     }
 
     return (
-        <main className="flex justify-center items-center min-h-screen bg-gray-100 mochibop-font">
+        <main className="flex justify-center items-center min-h-screen bg-gray-100">
             <Outlet />
         </main>
     );
