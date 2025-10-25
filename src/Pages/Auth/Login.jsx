@@ -40,6 +40,7 @@ function Login() {
             localStorage.setItem('token', response.data.access_token);
             await checkUser();
 
+            setPageTitle('');
             setTimeout(() => navigate('/'), 100);
         } catch (err) {
             console.error("Login error:", err.response ? err.response.data : err.message);

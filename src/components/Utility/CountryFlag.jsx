@@ -143,6 +143,7 @@ const countryNameToCode = {
   "Qatar": "QA",
   "Romania": "RO",
   "Russian Federation": "RU",
+  "Russia": "RU",
   "Rwanda": "RW",
   "Saint Kitts and Nevis": "KN",
   "Saint Lucia": "LC",
