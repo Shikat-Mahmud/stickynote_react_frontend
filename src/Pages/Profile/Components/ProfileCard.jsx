@@ -58,6 +58,10 @@ export default function ProfileCard({ activeTab, setActiveTab }) {
                     {user.uid} <br />
                     {user.email}
                 </p>
+                <p>
+                    <span>{user.totalFollowers} Followers</span> | {" "}
+                    <span>{user.totalFollowings} Followings</span>
+                </p>
 
                 <ProfileTabs
                     activeTab={activeTab}
