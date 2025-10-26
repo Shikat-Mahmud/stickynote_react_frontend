@@ -59,7 +59,7 @@ function Header() {
                     <div className="flex items-center space-x-2 relative" ref={dropdownRef}>
                         <div className="flex flex-col">
                             <span>Welcome, {user.name?.trim().split(" ")[0] || ''}!</span>
-                            <span><i className="ri-coin-line me-2"></i>{user.totalCredits || 0}</span>
+                            <span><i className="ri-coin-line me-2"></i>{user.total_credits || 0}</span>
                         </div>
 
                         {/* Profile Button Wrapper */}

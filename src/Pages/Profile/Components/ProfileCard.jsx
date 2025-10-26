@@ -58,10 +58,12 @@ export default function ProfileCard({ activeTab, setActiveTab }) {
                     {user.uid} <br />
                     {user.email}
                 </p>
-                <p>
-                    <span>{user.totalFollowers} Followers</span> | {" "}
-                    <span>{user.totalFollowings} Followings</span>
-                </p>
+                
+                <div className="flex justify-center gap-4 mt-3 text-gray-600 text-sm">
+                    <div><b>{user.posts_count || 0}</b> Notes</div>
+                    <div><b>{user.followers_count || 0}</b> Followers</div>
+                    <div><b>{user.followings_count || 0}</b> Following</div>
+                </div>
 
                 <ProfileTabs
                     activeTab={activeTab}

@@ -4,6 +4,7 @@ import Login from './Pages/Auth/Login';
 import Register from './Pages/Auth/Register';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Profile from './Pages/Profile/Profile';
+import UserProfile from './Pages/UserProfile/UserProfile';
 import NotFound from './Pages/NotFound';
 import './index.css';
 import './font.css';
@@ -36,6 +37,7 @@ function App() {
           <Route element={<AuthLayout />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/user-profile/:id" element={<UserProfile />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

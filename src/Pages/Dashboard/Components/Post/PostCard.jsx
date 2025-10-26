@@ -7,6 +7,7 @@ import { apiBaseUrl, apiStorageUrl } from '../../../../config';
 import axiosClient from '../../../../utils/axiosClient';
 import CountryFlag from '../../../../components/Utility/CountryFlag';
 import FollowButton from '../../../../components/Follow/FollowButton';
+import { useNavigate } from 'react-router-dom';
 
 const generateRandomColor = () => {
     const colors = [
@@ -39,6 +40,15 @@ function PostCard({ post, onPostUpdate }) {
     const { user } = useAuth();
     const [randomCardColor] = useState(generateRandomColor);
     const [randomCardAvater] = useState(generateRandomAvater);
+    const navigate = useNavigate();
+
+    const goToUserProfile = () => {
+        if (post.user.id === user?.id) {
+            navigate('/profile');
+            return;
+        }
+        navigate(`/user-profile/${post.user.id}`);
+    };
 
     const handleReaction = async (reactionType) => {
         if (!user) {
@@ -82,7 +92,9 @@ function PostCard({ post, onPostUpdate }) {
                     />
                     <div>
                         <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-1">
+                            <span onClick={goToUserProfile} className="cursor-pointer hover:underline">
                             {post.user.name}
+                            </span>
                             {post.user.country && (
                                 <CountryFlag countryName={post.user.country} />
                             )}
