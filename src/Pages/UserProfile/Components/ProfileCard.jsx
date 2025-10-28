@@ -1,16 +1,10 @@
 import { useState } from "react";
 import { apiStorageUrl } from "../../../config";
-
-const generateRandomAvater = () => {
-    const avaters = [
-        'male_avater.png',
-        'female_avater.png',
-    ];
-    return avaters[Math.floor(Math.random() * avaters.length)];
-};
+import FollowButton from "../../../components/Follow/FollowButton";
+import randomAvatar from "../../../components/Utility/GenerateRandomAvatar";
 
 export default function ProfileCard({ user, activeTab, setActiveTab }) {
-    const [randomCardAvater] = useState(generateRandomAvater);
+    const [randomCardAvater] = useState(randomAvatar);
 
     return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
@@ -37,6 +31,7 @@ export default function ProfileCard({ user, activeTab, setActiveTab }) {
                     <div><b>{user.followers_count || 0}</b> Followers</div>
                     <div><b>{user.followings_count || 0}</b> Following</div>
                 </div>
+                <FollowButton targetUserId={user.id} initialFollowing={user.is_following} className={`mt-3 ${user.is_following ? 'bg-gray-200' : ''}`} />
             </div>
 
             <div className="flex justify-around border-t border-gray-200">

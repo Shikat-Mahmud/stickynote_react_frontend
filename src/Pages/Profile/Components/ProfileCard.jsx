@@ -4,19 +4,13 @@ import ProfileTabs from "./ProfileTabs";
 import axiosClient from "../../../utils/axiosClient";
 import { apiBaseUrl, apiStorageUrl } from "../../../config";
 import { AuthContext } from "../../../contexts/AuthContext";
+import randomAvatar from "../../../components/Utility/GenerateRandomAvatar";
 
-const generateRandomAvater = () => {
-    const avaters = [
-        'male_avater.png',
-        'female_avater.png',
-    ];
-    return avaters[Math.floor(Math.random() * avaters.length)];
-};
 
 export default function ProfileCard({ activeTab, setActiveTab }) {
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [randomCardAvater] = useState(generateRandomAvater);
+    const [randomCardAvater] = useState(randomAvatar);
 
 
     const handleLogout = async () => {
