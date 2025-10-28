@@ -4,7 +4,7 @@ export default function ProfilePosts({ posts }) {
   if (!posts.length) return <p>No posts yet.</p>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="flex justify-center flex-wrap gap-6 items-start">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
