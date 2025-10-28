@@ -19,6 +19,8 @@ function PostCard({ post, onPostUpdate }) {
     const [randomCardAvater] = useState(randomAvatar);
     const navigate = useNavigate();
 
+    const isUserProfilePage = location.pathname.includes('/user-profile');
+
     const goToUserProfile = () => {
         if (post.user.id === user?.id) {
             navigate('/profile');
@@ -70,13 +72,20 @@ function PostCard({ post, onPostUpdate }) {
                     <div>
                         <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-1">
                             <span onClick={goToUserProfile} className="cursor-pointer hover:underline">
-                            {post.user.name}
+                                {post.user.name}
                             </span>
-                            {post.user.country && (
+                            {post.user.country && !isUserProfilePage && (
                                 <CountryFlag countryName={post.user.country} />
                             )}
-                            <FollowButton targetUserId={post.user.id} initialFollowing={post.user.is_following} className="ms-3" />
-                        </h3>
+
+                            {/* Hide Follow button on user profile page */}
+                            {!isUserProfilePage && (
+                                <FollowButton
+                                    targetUserId={post.user.id}
+                                    initialFollowing={post.user.is_following}
+                                    className="ms-3"
+                                />
+                            )}                        </h3>
                         <div className="flex items-center">
                             <p className="text-sm text-gray-600">{post.user.uid}</p>
                             <span className="text-xs text-gray-500 ms-2">
