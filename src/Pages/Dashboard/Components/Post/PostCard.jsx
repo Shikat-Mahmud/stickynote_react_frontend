@@ -7,9 +7,9 @@ import { apiBaseUrl, apiStorageUrl } from '../../../../config';
 import axiosClient from '../../../../utils/axiosClient';
 import CountryFlag from '../../../../components/Utility/CountryFlag';
 import FollowButton from '../../../../components/Follow/FollowButton';
-import { useNavigate } from 'react-router-dom';
 import randomAvatar from '../../../../components/Utility/GenerateRandomAvatar';
 import randomColor from '../../../../components/Utility/GenerateRandomColor';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 function PostCard({ post, onPostUpdate }) {
@@ -19,7 +19,10 @@ function PostCard({ post, onPostUpdate }) {
     const [randomCardAvater] = useState(randomAvatar);
     const navigate = useNavigate();
 
-    const isUserProfilePage = location.pathname.includes('/user-profile');
+    const location = useLocation();
+    const isUserProfilePage = ['/user-profile', '/profile'].some(path =>
+        location.pathname.startsWith(path)
+    );
 
     const goToUserProfile = () => {
         if (post.user.id === user?.id) {
