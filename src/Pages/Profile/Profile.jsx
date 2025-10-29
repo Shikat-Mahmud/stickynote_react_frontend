@@ -24,7 +24,7 @@ export default function Profile() {
 
     return (
         <div className="bg-gray-50 min-h-screen">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center page-title">
                 Profile
             </h1>
             <div className="pt-4 pb-10 px-10 mx-0 md:mx-10 flex flex-col md:flex-row justify-center items-start gap-8">

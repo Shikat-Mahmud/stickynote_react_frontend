@@ -41,7 +41,7 @@ export default function UserProfile() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center page-title">
         {userData.name}'s Profile
       </h1>
 

@@ -100,7 +100,7 @@ function Dashboard() {
 
   return (
     <div className="pb-4 bg-gray-50 min-h-screen relative">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 pt-3 text-center page-title">
         Recent Notes
       </h1>
 
