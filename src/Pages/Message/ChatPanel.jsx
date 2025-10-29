@@ -9,7 +9,6 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
     const [input, setInput] = useState("");
     const scrollerRef = useRef(null);
     const messageRefs = useRef({});
-    const [isRotating, setIsRotating] = useState(false);
 
     // Helper function to format date labels
     const getDateLabel = (dateString) => {
@@ -36,14 +35,6 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
             month: "short",
             year: "numeric",
         });
-    };
-
-    const handleRefresh = async () => {
-        setIsRotating(true);
-
-        await fetchMessages();
-
-        setTimeout(() => setIsRotating(false), 1000);
     };
 
     const fetchMessages = useCallback(async () => {
@@ -193,11 +184,11 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
                     </div>
                     <div className="flex items-center gap-2">
                         <button
-                            onClick={handleRefresh}
+                            onClick={fetchMessages}
                             className="text-white px-2 py-1 rounded"
                             title="Refresh"
                         >
-                            <i className={`ri-reset-right-line transition-transform duration-700 ${isRotating ? "rotate-360" : ""}`}></i>
+                            <i className="ri-reset-right-line"></i>
                         </button>
                         <button onClick={onClose} className="text-2xl leading-none px-3">
                             <i className="ri-close-line"></i>
