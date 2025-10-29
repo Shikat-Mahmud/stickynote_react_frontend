@@ -45,7 +45,7 @@ export default function ProfileCard({ user, activeTab, setActiveTab }) {
                         }`}
                     style={activeTab === "about" ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' } : {}}
                 >
-                    <i class="ri-information-2-line me-2"></i>
+                    <i className="ri-information-2-line me-2"></i>
                     About
                 </button>
                 <button
@@ -54,7 +54,7 @@ export default function ProfileCard({ user, activeTab, setActiveTab }) {
                         }`}
                     style={activeTab === "posts" ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' } : {}}
                 >
-                    <i class="ri-sticky-note-line me-2"></i>
+                    <i className="ri-sticky-note-line me-2"></i>
                     Notes
                 </button>
             </div>

@@ -5,6 +5,7 @@ import ProfileCard from "./Components/ProfileCard";
 import ProfileAbout from "./Components/ProfileAbout";
 import ProfilePosts from "./Components/ProfilePosts";
 import axiosClient from "../../utils/axiosClient";
+import ChatButton from "../Message/Component/ChatButton";
 
 export default function UserProfile() {
   const { id } = useParams();
@@ -57,6 +58,8 @@ export default function UserProfile() {
           {activeTab === "posts" && <ProfilePosts posts={userPosts} />}
         </div>
       </div>
+
+      <ChatButton receiver={userData} />
     </div>
   );
 }
