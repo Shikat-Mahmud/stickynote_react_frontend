@@ -2,7 +2,7 @@ export default function ProfileTabs({ activeTab, setActiveTab, onLogout }) {
   const tabs = [
     { key: "profile", label: "Profile Manage", icon: "ri-user-3-line" },
     { key: "password", label: "Password Manage", icon: "ri-lock-password-line" },
-    { key: "posts", label: "Notes", icon: "ri-file-line" },
+    { key: "posts", label: "Notes", icon: "ri-sticky-note-line" },
     { key: "logout", label: "Logout", icon: "ri-logout-circle-r-line", isLogout: true },
   ];
 

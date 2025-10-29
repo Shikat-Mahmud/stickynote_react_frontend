@@ -43,17 +43,19 @@ export default function ProfileCard({ user, activeTab, setActiveTab }) {
                     onClick={() => setActiveTab("about")}
                     className={`flex-1 py-3 font-medium ${activeTab === "about" ? "border-t-2 bg-orange-200 border-orange-400 shadow-md" : "bg-gray-50"
                         }`}
-                    style={activeTab === "about" ? { boxShadow: '0 5px 5px -2px rgba(0, 0, 0, 0.25)' } : {}}
+                    style={activeTab === "about" ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' } : {}}
                 >
+                    <i class="ri-information-2-line me-2"></i>
                     About
                 </button>
                 <button
                     onClick={() => setActiveTab("posts")}
                     className={`flex-1 py-3 font-medium ${activeTab === "posts" ? "border-t-2 bg-orange-200 border-orange-400 shadow-md" : "bg-gray-50"
                         }`}
-                    style={activeTab === "posts" ? { boxShadow: '0 5px 5px -2px rgba(0, 0, 0, 0.25)' } : {}}
+                    style={activeTab === "posts" ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' } : {}}
                 >
-                    Posts
+                    <i class="ri-sticky-note-line me-2"></i>
+                    Notes
                 </button>
             </div>
         </div>
