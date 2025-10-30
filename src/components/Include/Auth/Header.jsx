@@ -1,24 +1,22 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../contexts/AuthContext';
-import { apiBaseUrl, apiStorageUrl } from '../../../config';
-import axiosClient from '../../../utils/axiosClient';
+import { useContext, useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { apiBaseUrl, apiStorageUrl } from "../../../config";
+import axiosClient from "../../../utils/axiosClient";
+import NavChatButton from "../../../Pages/Message/Component/NavChatButton";
+import randomAvatar from "../../Utility/GenerateRandomAvatar";
 
-const generateRandomAvater = () => {
-    const avaters = [
-        'male_avater.png',
-        'female_avater.png',
-    ];
-    return avaters[Math.floor(Math.random() * avaters.length)];
-};
-
-function Header() {
+export default function Header() {
     const { user, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const [randomCardAvater] = useState(generateRandomAvater);
+    const [randomCardAvater] = useState(randomAvatar);
 
+    const handleDropdownToggle = (type) => {
+        if (type === "chat") setDropdownOpen(false);
+        else if (type === "profile") setDropdownOpen((prev) => !prev);
+    };
 
     const handleLogout = async () => {
         try {
@@ -56,7 +54,9 @@ function Header() {
 
             <nav>
                 {user ? (
-                    <div className="flex items-center space-x-2 relative" ref={dropdownRef}>
+                    <div className="flex items-center space-x-4 relative" ref={dropdownRef}>
+                        <NavChatButton onOpenAnotherDropdown={handleDropdownToggle} />
+
                         <div className="flex flex-col">
                             <span>Welcome, {user.name?.trim().split(" ")[0] || ''}!</span>
                             <span><i className="ri-coin-line me-2"></i>{user.total_credits || 0}</span>
@@ -65,7 +65,7 @@ function Header() {
                         {/* Profile Button Wrapper */}
                         <div className="relative">
                             <button
-                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                onClick={() => handleDropdownToggle("profile")}
                                 className="focus:outline-none cursor-pointer"
                             >
                                 <img
@@ -125,5 +125,3 @@ function Header() {
         </header>
     );
 }
-
-export default Header;

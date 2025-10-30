@@ -145,6 +145,11 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
         return () => clearInterval(id);
     }, [isOpen, receiver, fetchMessages]);
 
+    useEffect(() => {
+        document.body.style.overflow = isOpen ? "hidden" : "";
+        return () => (document.body.style.overflow = "");
+    }, [isOpen]);
+
     return (
         <>
             <div
@@ -156,10 +161,16 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
 
             <aside
                 aria-hidden={!isOpen}
-                className={`fixed top-0 right-0 z-50 h-full transform transition-transform duration-300
-          ${isOpen ? "translate-x-0" : "translate-x-full"}
-          w-full sm:w-96 bg-white shadow-xl flex flex-col`}
-                style={{ maxWidth: "100%" }}
+                className={`fixed top-0 right-0 bottom-0 z-9999 h-full transform transition-transform duration-300
+                    ${isOpen ? "translate-x-0" : "translate-x-full"}
+                    w-full sm:w-[380px] bg-white shadow-2xl flex flex-col`}
+                style={{
+                    maxWidth: "100%",
+                    position: "fixed",
+                    right: 0,
+                    marginRight: 0,
+                    overflow: "hidden",
+                }}
             >
                 <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-600 text-white">
                     <div className="flex items-center justify-center gap-3">
@@ -169,17 +180,18 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
                                     ? `${apiStorageUrl}/${receiver.avater}`
                                     : `/assets/icons/${receiver?.gender == "male"
                                         ? "male_avater.png"
-                                        : receiver?.gender == "female"
-                                            ? "female_avater.png"
+                                        : (receiver?.gender == 'female'
+                                            ? 'female_avater.png'
                                             : randomCardAvater
+                                        )
                                     }`
                             }
                             alt={receiver.name}
                             className="w-12 h-12 rounded-full object-cover mx-auto"
                         />
                         <div>
-                            <div className="font-semibold">{receiver?.name || "User"}</div>
-                            <div className="text-sm font-medium">{receiver?.uid || "Chat"}</div>
+                            <div className="font-semibold">{receiver?.name ?? "User"}</div>
+                            <div className="text-sm font-medium">{receiver?.uid ?? "Chat"}</div>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -263,14 +275,14 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
                     }, [])}
                 </div>
 
-                <form onSubmit={sendMessage} className="p-3 border-t bg-white flex gap-2 items-end">
+                <form onSubmit={sendMessage} className="p-3 border-t bg-white border-gray-800 flex gap-2 items-end">
                     <textarea
                         rows={1}
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
                         placeholder="Type a message..."
-                        className="flex-1 resize-none border rounded-lg p-2 focus:outline-none"
+                        className="flex-1 p-2 bg-white text-gray-700 rounded-lg outline-none border border-gray-700"
                     />
                     <button
                         type="submit"
