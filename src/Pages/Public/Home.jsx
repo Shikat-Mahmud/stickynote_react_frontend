@@ -9,7 +9,7 @@ const Home = () => {
 
     return (
         <div className="p-8">
-            <h1 className="text-4xl font-bold">Welcome to StickyNote</h1>
+            <h1 className="text-4xl font-bold">Welcome to {import.meta.env.VITE_APP_NAME || "StickyNote"}</h1>
             <p className="mt-4 text-lg">The best place to share your thoughts.</p>
         </div>
     );
