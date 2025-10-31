@@ -7,10 +7,9 @@ import { AuthContext } from "../../../../contexts/AuthContext";
 
 export default function NavSearch({ onOpenAnotherDropdown }) {
     const { user } = useContext(AuthContext);
-
+    const [searchOpen, setSearchOpen] = useState(false);
     const navigate = useNavigate();
     const [randomCardAvater] = useState(randomAvatar);
-    const [open, setOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [results, setResults] = useState({ users: [], posts: [] });
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -42,12 +41,12 @@ export default function NavSearch({ onOpenAnotherDropdown }) {
 
     const handleToggle = () => {
         onOpenAnotherDropdown("search");
-        setOpen((prev) => !prev);
-        if (!open) setTimeout(() => inputRef.current?.focus(), 100);
+        setSearchOpen((prev) => !prev);
+        if (!searchOpen) setTimeout(() => inputRef.current?.focus(), 100);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setSearchOpen(false);
         setQuery("");
         setResults({ users: [], posts: [] });
     };
@@ -59,12 +58,22 @@ export default function NavSearch({ onOpenAnotherDropdown }) {
         handleClose();
     };
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (inputRef.current && !inputRef.current.contains(e.target)) {
+                setSearchOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     const containerStyle = isMobile
-        ? "fixed inset-0 bg-white text-gray-800 z-50 flex flex-col"
-        : "absolute right-0 top-12 bg-white text-gray-800 shadow-md rounded-xl w-96 max-h-[400px] overflow-y-auto";
+        ? "fixed inset-0 z-50 flex flex-col"
+        : "absolute right-0 top-12 shadow-md rounded-xl w-96 max-h-[400px] overflow-y-auto";
 
     return (
-        <div className="relative">
+        <div className="relative" ref={inputRef}>
             <button
                 onClick={handleToggle}
                 className="text-xl hover:text-green-400 transition"
@@ -72,8 +81,8 @@ export default function NavSearch({ onOpenAnotherDropdown }) {
                 <i className="ri-search-line"></i>
             </button>
 
-            {open && (
-                <div className={containerStyle}>
+            {searchOpen && (
+                <div className={`animate-fadeIn bg-white text-gray-800 ${containerStyle}`}>
                     <div className="flex items-center border-b px-3 py-2">
                         <i className="ri-search-line text-lg text-gray-500 me-2"></i>
                         <input
@@ -85,7 +94,7 @@ export default function NavSearch({ onOpenAnotherDropdown }) {
                             className="flex-1 bg-transparent outline-none text-sm"
                         />
                         <button onClick={handleClose} className="text-gray-500 text-lg">
-                            <i className="ri-close-line"></i>
+                            <i className="ri-close-large-line"></i>
                         </button>
                     </div>
 

@@ -56,10 +56,10 @@ export default function Header() {
             <nav>
                 {user ? (
                     <div className="flex items-center space-x-4 relative" ref={dropdownRef}>
-                        <NavSearch onOpenAnotherDropdown={handleDropdownToggle} />
                         <NavChatButton onOpenAnotherDropdown={handleDropdownToggle} />
+                        <NavSearch onOpenAnotherDropdown={handleDropdownToggle} />
 
-                        <div className="flex flex-col">
+                        <div className="md:flex hidden flex-col">
                             <span>Welcome, {user.name?.trim().split(" ")[0] || ''}!</span>
                             <span><i className="ri-coin-line me-2"></i>{user.total_credits || 0}</span>
                         </div>
@@ -89,6 +89,13 @@ export default function Header() {
                             {/* Dropdown Menu */}
                             {dropdownOpen && (
                                 <div className="absolute right-0 top-12 w-48 bg-white text-gray-800 rounded-lg shadow-lg py-2 z-50 animate-fadeIn">
+                                    <div className="md:hidden flex flex-col ps-4">
+                                        <span>Welcome, {user.name?.trim().split(" ")[0] || ''}!</span>
+                                        <span><i className="ri-coin-line me-2"></i>{user.total_credits || 0}</span>
+                                    </div>
+
+                                    <hr className="md:hidden my-1" />
+
                                     <Link
                                         to="/profile"
                                         className="flex items-center px-4 py-2 hover:bg-gray-100 transition"
@@ -104,8 +111,6 @@ export default function Header() {
                                     >
                                         <i className="ri-settings-3-line text-lg mr-2"></i> Settings
                                     </Link>
-
-                                    <hr className="my-1" />
 
                                     <button
                                         onClick={handleLogout}

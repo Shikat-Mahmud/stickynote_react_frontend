@@ -11,6 +11,13 @@ export default function NavChatButton({ onOpenAnotherDropdown }) {
     const [unreadTotal, setUnreadTotal] = useState(0);
     const [selectedReceiver, setSelectedReceiver] = useState(null);
     const chatListRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const fetchUnreadTotal = async () => {
         try {
@@ -55,6 +62,10 @@ export default function NavChatButton({ onOpenAnotherDropdown }) {
         return str.length > max ? `${str.slice(0, max)}...` : str;
     };
 
+    const containerStyle = isMobile
+        ? "fixed inset-0 z-50 flex flex-col"
+        : "absolute right-0 top-12 shadow-md rounded-xl w-64 max-h-[400px] overflow-y-auto";
+
     return (
         <>
             <div className="md:relative" ref={chatListRef}>
@@ -74,17 +85,14 @@ export default function NavChatButton({ onOpenAnotherDropdown }) {
                 </button>
 
                 {chatOpen && (
-                    <div
-                        className="absolute mt-3 bg-white text-gray-800 rounded-lg shadow-lg p-3 z-50 overflow-y-auto transition-transform transform origin-top animate-fadeIn w-full left-0 md:w-64 md:right-0 md:left-auto md:translate-x-0"
-                        style={{ maxHeight: "400px" }}
-                    >
+                    <div className={`animate-fadeIn p-4 bg-white text-gray-800 ${containerStyle}`}>
                         <div className="flex justify-between items-center mb-2">
                             <span className="font-semibold text-sm">Recent Chats</span>
                             <button
                                 onClick={() => setChatOpen(false)}
                                 className="text-gray-500 hover:text-red-500 text-sm"
                             >
-                                ✕
+                                <i className="ri-close-large-line"></i>
                             </button>
                         </div>
 
