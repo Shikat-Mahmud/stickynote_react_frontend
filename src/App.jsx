@@ -5,7 +5,7 @@ import Register from './Pages/Auth/Register';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Profile from './Pages/Profile/Profile';
 import UserProfile from './Pages/UserProfile/UserProfile';
-import NotFound from './Pages/NotFound';
+import NotFound from './Pages/NotFound/NotFound';
 import './index.css';
 import './font.css';
 import AuthLayout from './components/Layout/AuthLayout';

@@ -1,0 +1,99 @@
+:root{
+      --bg:#dff8fb;        /* light cyan */
+      --teal:#4aa7a5;      /* 404 color */
+      --accent:#ffd84d;    /* sun */
+      --text:#333;
+      --container-max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .page{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:2.5rem 1rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--container-max);
+      display:grid;
+      gap:1rem;
+      align-items:center;
+      justify-items:center;
+      text-align:center;
+      position:relative;
+      z-index:2;
+      padding:2rem 1rem 10rem 1rem; /* bottom padding to show SVG */
+    }
+
+    .code{
+      font-weight:800;
+      line-height:1;
+      color:var(--teal);
+      font-size: clamp(48px, 16vw, 220px);
+      margin:0;
+      letter-spacing:4px;
+    }
+
+    .message{
+      margin:0;
+      font-size: clamp(16px, 2.5vw, 22px);
+      color:#3a3a3a;
+      font-weight:600;
+    }
+
+    .sub{
+      margin-top:.5rem;
+      font-size:14px;
+      color:#666;
+    }
+
+    /* Illustration container - sticks to bottom */
+    .illustration{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      width:100%;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .illustration svg{
+      width:100%;
+      max-width:1200px;
+      height:auto;
+      display:block;
+      transform:translateY(6%);
+    }
+
+    .overlay-gradient{
+      position:absolute;
+      left:0;right:0;bottom:0;
+      height:40%;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 85%);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    @media (max-height:560px){
+      .card{padding-top:1rem;padding-bottom:1rem}
+      .illustration svg{transform:translateY(12%)}
+    }
