@@ -42,8 +42,9 @@ code {
   background-repeat: no-repeat;
   background-size: 100% 50px;
   background-position: center bottom;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
 
   /* white-glow text shadow */
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4),
