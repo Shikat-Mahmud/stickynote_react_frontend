@@ -8,7 +8,10 @@ export default function ProfileManageForm({ user }) {
     name: user?.name || "",
     email: user?.email || "",
     gender: user?.gender || "",
+    address: user?.address || "",
     country: user?.country || "",
+    school: user?.school || "",
+    bio: user?.bio || "",
   });
   const [avatarFile, setAvatarFile] = useState(null);
   const [preview, setPreview] = useState(user?.avatar ? `${apiStorageUrl}/${user.avatar}` : "");
@@ -66,6 +69,7 @@ export default function ProfileManageForm({ user }) {
             value={formData.name}
             onChange={handleChange}
             className="w-full border rounded-lg p-2 focus:outline-none"
+            placeholder="Enter Your Name"
           />
         </div>
 
@@ -78,6 +82,7 @@ export default function ProfileManageForm({ user }) {
             value={formData.email}
             onChange={handleChange}
             className="w-full border rounded-lg p-2 focus:outline-none"
+            placeholder="Enter Your Email"
           />
         </div>
       </div>
@@ -100,12 +105,50 @@ export default function ProfileManageForm({ user }) {
         </div>
 
         <div>
+          <label htmlFor="address" className="block text-gray-700 font-medium mb-1">Address</label>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            value={formData.address}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2 focus:outline-none"
+            placeholder="Enter Your Address"
+          />
+        </div>
+
+        <div>
           <label htmlFor="country" className="block text-gray-700 font-medium mb-1">Country</label>
           <CountrySelect
             value={formData.country}
             onChange={handleChange}
           />
         </div>
+
+        <div>
+          <label htmlFor="school" className="block text-gray-700 font-medium mb-1">School/College/University</label>
+          <input
+            type="text"
+            name="school"
+            id="school"
+            value={formData.school}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-2 focus:outline-none"
+            placeholder="Enter School/College/University Name"
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-1">
+        <label htmlFor="bio" className="block text-gray-700 font-medium mb-1">Bio</label>
+        <textarea
+          name="bio"
+          id="bio"
+          minLength={3}
+          value={formData.bio}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-2 focus:outline-none"
+          placeholder="Write your bio here."
+        />
       </div>
 
       <div>

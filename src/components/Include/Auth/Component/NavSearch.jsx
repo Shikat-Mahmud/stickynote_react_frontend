@@ -13,7 +13,19 @@ export default function NavSearch({ onOpenAnotherDropdown }) {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState({ users: [], posts: [] });
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const containerRef = useRef(null);
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setSearchOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -58,26 +70,13 @@ export default function NavSearch({ onOpenAnotherDropdown }) {
         handleClose();
     };
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (inputRef.current && !inputRef.current.contains(e.target)) {
-                setSearchOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
     const containerStyle = isMobile
         ? "fixed inset-0 z-50 flex flex-col"
         : "absolute right-0 top-12 shadow-md rounded-xl w-96 max-h-[400px] overflow-y-auto";
 
     return (
-        <div className="relative" ref={inputRef}>
-            <button
-                onClick={handleToggle}
-                className="text-xl hover:text-green-400 transition"
-            >
+        <div className="relative" ref={containerRef}>
+            <button onClick={handleToggle} className="text-xl hover:text-green-400 transition">
                 <i className="ri-search-line"></i>
             </button>
 
