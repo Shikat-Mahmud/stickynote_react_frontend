@@ -13,8 +13,8 @@ export default function ProfileCard({ user, activeTab, setActiveTab }) {
             <div className="flex flex-col items-center text-center">
                 <img
                     src={
-                        user.avater
-                            ? `${apiStorageUrl}/${user.avater}`
+                        user.avatar
+                            ? `${apiStorageUrl}/${user.avatar}`
                             : `/assets/icons/${user.gender === 'male'
                                 ? 'male_avater.png'
                                 : user.gender === 'female'

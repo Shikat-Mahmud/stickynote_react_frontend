@@ -31,7 +31,7 @@ export default function FollowersList({ userId }) {
       {list.map((u) => (
         <li key={u.id} className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src={u.avater ? `/storage/${u.avater}` : '/default-avatar.png'} alt={u.name} className="w-10 h-10 rounded-full object-cover" />
+            <img src={u.avatar ? `/storage/${u.avatar}` : '/default-avatar.png'} alt={u.name} className="w-10 h-10 rounded-full object-cover" />
             <div>
               <div className="font-medium">{u.name}</div>
               <div className="text-sm text-gray-500">{u.uid}</div>

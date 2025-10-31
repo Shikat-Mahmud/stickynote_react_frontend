@@ -55,7 +55,7 @@ function ReplyCard({ reply, onReplyUpdate }) {
             <div className="flex items-center mb-1">
                 <img
                     src={
-                        reply.user.avater ? `${apiStorageUrl}/${reply.user.avater}`
+                        reply.user.avatar ? `${apiStorageUrl}/${reply.user.avatar}`
                             : `/assets/icons/${reply.user?.gender == 'male'
                                 ? 'male_avater.png'
                                 : (reply.user?.gender == 'female'

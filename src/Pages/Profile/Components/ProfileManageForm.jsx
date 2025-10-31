@@ -11,7 +11,7 @@ export default function ProfileManageForm({ user }) {
     country: user?.country || "",
   });
   const [avatarFile, setAvatarFile] = useState(null);
-  const [preview, setPreview] = useState(user?.avater ? `${apiStorageUrl}/${user.avater}` : "");
+  const [preview, setPreview] = useState(user?.avatar ? `${apiStorageUrl}/${user.avatar}` : "");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -36,7 +36,7 @@ export default function ProfileManageForm({ user }) {
     try {
       const data = new FormData();
       Object.entries(formData).forEach(([key, value]) => data.append(key, value));
-      if (avatarFile) data.append("avater", avatarFile);
+      if (avatarFile) data.append("avatar", avatarFile);
 
       const res = await axiosClient.putForm(`${apiBaseUrl}/profile/${user.id}`, data);
       if (res.data.success) {
@@ -109,10 +109,10 @@ export default function ProfileManageForm({ user }) {
       </div>
 
       <div>
-        <label htmlFor="avater" className="block text-gray-700 font-medium mb-1">Profile Picture</label>
+        <label htmlFor="avatar" className="block text-gray-700 font-medium mb-1">Profile Picture</label>
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           {preview && (
-            <label htmlFor="avater" className="cursor-pointer">
+            <label htmlFor="avatar" className="cursor-pointer">
               <img
                 src={preview}
                 alt="Preview"
@@ -122,8 +122,8 @@ export default function ProfileManageForm({ user }) {
           )}
           <input
             type="file"
-            name="avater"
-            id="avater"
+            name="avatar"
+            id="avatar"
             accept="image/*"
             onChange={handleAvatarChange}
             className="block text-sm text-gray-700 w-full sm:w-auto"

@@ -60,7 +60,7 @@ function PostCard({ post, onPostUpdate }) {
                 <div className="flex items-center">
                     <img
                         src={
-                            post.user.avater ? `${apiStorageUrl}/${post.user.avater}`
+                            post.user.avatar ? `${apiStorageUrl}/${post.user.avatar}`
                                 : `/assets/icons/${post.user?.gender == 'male'
                                     ? 'male_avater.png'
                                     : (post.user?.gender == 'female'

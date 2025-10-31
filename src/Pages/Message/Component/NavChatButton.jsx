@@ -121,8 +121,8 @@ export default function NavChatButton({ onOpenAnotherDropdown }) {
                                     <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition">
                                         <img
                                             src={
-                                                u.avater
-                                                    ? `${apiStorageUrl}/${u.avater}`
+                                                u.avatar
+                                                    ? `${apiStorageUrl}/${u.avatar}`
                                                     : `/assets/icons/${u.gender === "male"
                                                         ? "male_avater.png"
                                                         : (u.gender == 'female'

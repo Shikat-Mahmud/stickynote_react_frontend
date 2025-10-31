@@ -111,7 +111,7 @@ function CommentCard({ comment, onCommentUpdate }) {
             <div className="flex items-center mb-2">
                 <img
                     src={
-                        currentComment.user.avater ? `${apiStorageUrl}/${currentComment.user.avater}`
+                        currentComment.user.avatar ? `${apiStorageUrl}/${currentComment.user.avatar}`
                             : `/assets/icons/${currentComment.user?.gender == 'male'
                                 ? 'male_avater.png'
                                 : (currentComment.user?.gender == 'female'

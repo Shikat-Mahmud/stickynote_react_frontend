@@ -176,8 +176,8 @@ export default function ChatPanel({ receiver, isOpen, onClose }) {
                     <div className="flex items-center justify-center gap-3">
                         <img
                             src={
-                                receiver.avater
-                                    ? `${apiStorageUrl}/${receiver.avater}`
+                                receiver.avatar
+                                    ? `${apiStorageUrl}/${receiver.avatar}`
                                     : `/assets/icons/${receiver?.gender == "male"
                                         ? "male_avater.png"
                                         : (receiver?.gender == 'female'
