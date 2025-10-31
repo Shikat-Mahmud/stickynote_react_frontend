@@ -44,7 +44,16 @@ export default function NavChatButton({ onOpenAnotherDropdown }) {
     }, []);
 
     useEffect(() => {
-        if (chatOpen) fetchRecentUsers();
+        if (chatOpen) {
+            fetchRecentUsers();
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
     }, [chatOpen]);
 
     useEffect(() => {
@@ -97,46 +106,52 @@ export default function NavChatButton({ onOpenAnotherDropdown }) {
                         </div>
 
                         {chatList.length ? (
-                            chatList.map(({ user: u, unread_count, last_message }) => (
+                            chatList.map(({ user: u, unread_count, last_message }, index) => (
                                 <div
                                     key={u.id}
-                                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition"
+                                    className="relative flex flex-col"
                                     onClick={() => {
                                         setSelectedReceiver(u);
                                         setChatOpen(false);
                                     }}
                                 >
-                                    <img
-                                        src={
-                                            u.avater
-                                                ? `${apiStorageUrl}/${u.avater}`
-                                                : `/assets/icons/${u.gender === "male"
-                                                    ? "male_avater.png"
-                                                    : (u.gender == 'female'
-                                                        ? 'female_avater.png'
-                                                        : randomCardAvater
-                                                    )
-                                                }`
-                                        }
-                                        className="w-10 h-10 rounded-full object-cover"
-                                        alt={u.name}
-                                    />
-                                    <div className="flex-1">
-                                        <p className="font-medium text-sm">{truncate(u.name, 25)}</p>
-                                        <p className="text-xs text-gray-500 truncate">
-                                            {truncate(last_message ?? "", 20)}
-                                        </p>
-                                    </div>
-                                    {unread_count > 0 && (
-                                        <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">
-                                            {unread_count}
-                                        </span>
+                                    {index !== 0 && (
+                                        <div className="w-[90%] mx-auto border-t border-gray-200"></div>
                                     )}
+                                    <div className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 cursor-pointer transition">
+                                        <img
+                                            src={
+                                                u.avater
+                                                    ? `${apiStorageUrl}/${u.avater}`
+                                                    : `/assets/icons/${u.gender === "male"
+                                                        ? "male_avater.png"
+                                                        : (u.gender == 'female'
+                                                            ? 'female_avater.png'
+                                                            : randomCardAvater
+                                                        )
+                                                    }`
+                                            }
+                                            className="w-10 h-10 rounded-full object-cover"
+                                            alt={u.name}
+                                        />
+                                        <div className="flex-1">
+                                            <p className="font-medium text-sm">{truncate(u.name, 25)}</p>
+                                            <p className="text-xs text-gray-500 truncate">
+                                                {truncate(last_message ?? "", 20)}
+                                            </p>
+                                        </div>
+                                        {unread_count > 0 && (
+                                            <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">
+                                                {unread_count}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             ))
                         ) : (
                             <p className="text-sm text-gray-500">No recent chats</p>
                         )}
+
                     </div>
                 )}
             </div>
