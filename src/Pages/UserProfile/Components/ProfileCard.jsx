@@ -5,6 +5,7 @@ import randomAvatar from "../../../components/Utility/GenerateRandomAvatar";
 
 export default function ProfileCard({ user, activeTab, setActiveTab }) {
     const [randomCardAvater] = useState(randomAvatar);
+    const [totalFollowers, setTotalFollowers] = useState(user.followers_count);
 
     return (
         <div className="square-card relative p-6 border-t-4 border-green-500 bg-white shadow-md rounded-2xl overflow-hidden">
@@ -12,13 +13,13 @@ export default function ProfileCard({ user, activeTab, setActiveTab }) {
             <div className="flex flex-col items-center text-center">
                 <img
                     src={
-                        user.avater ? `${apiStorageUrl}/${user.avater}`
-                            : `/assets/icons/${user?.gender == 'male'
+                        user.avater
+                            ? `${apiStorageUrl}/${user.avater}`
+                            : `/assets/icons/${user.gender === 'male'
                                 ? 'male_avater.png'
-                                : (user?.gender == 'female'
+                                : user.gender === 'female'
                                     ? 'female_avater.png'
                                     : randomCardAvater
-                                )
                             }`
                     }
                     alt={user.name}
@@ -32,27 +33,45 @@ export default function ProfileCard({ user, activeTab, setActiveTab }) {
 
                 <div className="flex justify-center gap-4 mt-3 text-gray-600 text-sm">
                     <div><b>{user.posts_count || 0}</b> Notes</div>
-                    <div><b>{user.followers_count || 0}</b> Followers</div>
+                    <div><b>{totalFollowers}</b> Followers</div>
                     <div><b>{user.followings_count || 0}</b> Following</div>
                 </div>
-                <FollowButton targetUserId={user.id} initialFollowing={user.is_following} className={`mt-3 ${user.is_following ? 'bg-gray-200' : ''}`} />
+
+                <FollowButton
+                    targetUserId={user.id}
+                    initialFollowing={user.is_following}
+                    onFollowersChange={setTotalFollowers}
+                    className={`mt-3 ${user.is_following ? 'bg-gray-200' : ''}`}
+                />
             </div>
 
             <div className="flex justify-around mt-3">
                 <button
                     onClick={() => setActiveTab("about")}
-                    className={`flex-1 py-3 font-medium ${activeTab === "about" ? "border-t-2 bg-orange-200 border-orange-400 shadow-md" : "bg-gray-50"
+                    className={`flex-1 py-3 font-medium ${activeTab === "about"
+                            ? "border-t-2 bg-orange-200 border-orange-400 shadow-md"
+                            : "bg-gray-50"
                         }`}
-                    style={activeTab === "about" ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' } : {}}
+                    style={
+                        activeTab === "about"
+                            ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' }
+                            : {}
+                    }
                 >
                     <i className="ri-information-2-line me-2"></i>
                     About
                 </button>
                 <button
                     onClick={() => setActiveTab("posts")}
-                    className={`flex-1 py-3 font-medium ${activeTab === "posts" ? "border-t-2 bg-orange-200 border-orange-400 shadow-md" : "bg-gray-50"
+                    className={`flex-1 py-3 font-medium ${activeTab === "posts"
+                            ? "border-t-2 bg-orange-200 border-orange-400 shadow-md"
+                            : "bg-gray-50"
                         }`}
-                    style={activeTab === "posts" ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' } : {}}
+                    style={
+                        activeTab === "posts"
+                            ? { boxShadow: '0 5px 5px rgba(0, 0, 0, 0.20)' }
+                            : {}
+                    }
                 >
                     <i className="ri-sticky-note-line me-2"></i>
                     Notes

@@ -12,8 +12,6 @@ export default function NavChatButton({ onOpenAnotherDropdown }) {
     const [selectedReceiver, setSelectedReceiver] = useState(null);
     const chatListRef = useRef(null);
 
-    console.log(selectedReceiver)
-
     const fetchUnreadTotal = async () => {
         try {
             const { data } = await axiosClient.get(`${apiBaseUrl}/chat/unread-count`);
