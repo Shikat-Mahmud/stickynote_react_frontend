@@ -5,6 +5,7 @@ import { apiBaseUrl, apiStorageUrl } from "../../../config";
 import axiosClient from "../../../utils/axiosClient";
 import NavChatButton from "../../../Pages/Message/Component/NavChatButton";
 import randomAvatar from "../../Utility/GenerateRandomAvatar";
+import NavSearch from "./Component/NavSearch";
 
 export default function Header() {
     const { user, setUser } = useContext(AuthContext);
@@ -55,6 +56,7 @@ export default function Header() {
             <nav>
                 {user ? (
                     <div className="flex items-center space-x-4 relative" ref={dropdownRef}>
+                        <NavSearch onOpenAnotherDropdown={handleDropdownToggle} />
                         <NavChatButton onOpenAnotherDropdown={handleDropdownToggle} />
 
                         <div className="flex flex-col">

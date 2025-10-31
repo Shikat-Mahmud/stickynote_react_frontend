@@ -56,6 +56,7 @@ const CreatePostModal = ({ user, onClose, onPostCreated }) => {
                         placeholder="What's on your mind?"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
+                        autoFocus
                     ></textarea>
 
                     <button
